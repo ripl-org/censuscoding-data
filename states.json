@@ -1,11 +1,20 @@
 {
+    "HI/Hawaii": {
+        "address": {
+            "path": "Data/Public/Censuscoding/HI/20211218/us_hi_hawaii-addresses-county.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
+        }
+    },
     "HI/Honolulu": {
         "address": {
             "path": "Data/Public/Censuscoding/HI/20211218/us_hi_honolulu-addresses-city.geojson.gz",
             "method": "openaddresses"
         },
         "blkgrp": {
-            "path": "Data/Public/TIGER/HI/2020/tl_2020_15_bg.shp"
+            "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
         }
     },
     "RI": {
@@ -14,7 +23,7 @@
             "method": "ri-e911"
         },
         "blkgrp": {
-            "path": "Data/Public/TIGER/RI/2020/tl_2020_44_bg.shp"
+            "path": "Data/Public/TIGER/2020/tl_2020_44_bg.shp"
         }
     }
 }
