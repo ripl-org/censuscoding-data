@@ -26,6 +26,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
         }
     },
+    "HI/Maui": {
+        "address": {
+            "path": "Data/Public/Censuscoding/HI/20211218/us_hi_maui-addresses-county.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
+        }
+    },
     "RI": {
         "address": {
             "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
