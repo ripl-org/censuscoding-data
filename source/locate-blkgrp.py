@@ -29,7 +29,7 @@ def locate(row):
     return np.nan
 
 address["BlockGroup"] = address.apply(locate, axis=1)
-address = address[["StreetNum", "StreetName", "City", "Zip", "BlockGroup"]].drop_duplicates()
+address = address[["StreetNum", "StreetName", "Zip", "BlockGroup"]].drop_duplicates()
 
 print("Blockgroup missing for", address.BlockGroup.isnull().sum())
 print("Unique blockgroups:", len(address.BlockGroup.unique()))

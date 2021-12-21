@@ -1,11 +1,20 @@
 {
+    "HI/Honolulu": {
+        "address": {
+            "path": "Data/Public/Censuscoding/HI/20211218/us_hi_honolulu-addresses-city.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/HI/2020/tl_2020_15_bg.shp"
+        }
+    },
     "RI": {
         "address": {
             "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
             "method": "ri-e911"
         },
         "blkgrp": {
-            "path": "Data/Public/TIGER/RI/2020/cb_2020_44_bg_500k.shp"
+            "path": "Data/Public/TIGER/RI/2020/tl_2020_44_bg.shp"
         }
     }
 }
