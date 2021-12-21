@@ -1,0 +1,11 @@
+{
+    "RI": {
+        "address": {
+            "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
+            "method": "ri-e911"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/RI/2020/cb_2020_44_bg_500k.shp"
+        }
+    }
+}

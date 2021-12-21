@@ -1,11 +1,16 @@
 import pandas as pd
 import numpy as np
+import re
 import sys
 import usaddress
-import re
-from util import *
 
-sites_file, street_types_file, out_file = sys.argv[1:]
+def upper(x):
+    return "".join(c for c in x.upper() if c.isalpha() or c==" ")
+
+def upper_alphanum(x):
+    return "".join(c for c in x.upper() if c.isalnum() or c==" ")
+
+sites_file, out_file = sys.argv[1:]
 
 ### NOTE: As of 2021/12/07 E911 sites .csv column names have changes    ###
 ###   - The code below renames to old colnames in order to change as little
@@ -16,9 +21,6 @@ new_columns = ["OBJECTID", "X", "Y", "Post_Code", "MSAGComm", "AddNumFull", "St_
 sites = pd.read_csv(sites_file, usecols=new_columns, low_memory=False)
 sites.rename(columns=dict(zip(new_columns, old_columns)), inplace=True)
 sites[["ALIName"]] = sites[["PrimaryNam"]]
-
-### Code below is same as before                                        ###
-street_types = pd.read_csv(street_types_file)
 
 # Retain sites with known lat/lon
 sites = sites[sites.X.notnull() & sites.Y.notnull()]
@@ -62,7 +64,6 @@ tagged["Directional"] = np.where(tagged.StreetNamePreDirectional.notnull(), tagg
 
 sites["StreetNum"] = np.where(tagged.AddressNumber.str.isdigit()==True, tagged.AddressNumber, np.nan)
 sites["StreetName"] = np.where(tagged.Directional.notnull(), tagged.Directional + " " + tagged.StreetName, tagged.StreetName)
-sites["StreetType"] = tagged.merge(street_types, how="left", left_on="StreetNamePostType", right_on="StreetType").NormStreetType
 
 i = tagged.AddressNumber.str.isdigit() == False
 print(i.sum(), "non-numeric street numbers")
@@ -70,7 +71,6 @@ sites.loc[i, "StreetName"] = tagged.loc[i, "AddressNumber"] + " " + sites.loc[i,
 
 sites["StreetName"] = np.where(sites.StreetName.isnull() ,tagged.StreetNamePostDirectional, sites.StreetName)
 
-columns = ["ESiteID", "X", "Y", "StreetNum", "StreetName", "StreetType", "City", "Zip"]
+columns = ["X", "Y", "StreetNum", "StreetName", "City", "Zip"]
 
 sites[columns].drop_duplicates(columns).sort_values(["City", "StreetName", "StreetNum"]).to_csv(out_file, index=False)
-
