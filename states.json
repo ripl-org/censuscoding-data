@@ -44,6 +44,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
         }
     },
+    "MA": {
+        "address": {
+            "path": "Data/Public/Censuscoding/MA/20211221/us_ma_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_25_bg.shp"
+        }
+    },
     "ME": {
         "address": {
             "path": "Data/Public/Censuscoding/ME/20211221/us_me_statewide-addresses-state.geojson.gz",

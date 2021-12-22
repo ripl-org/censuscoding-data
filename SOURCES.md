@@ -90,6 +90,25 @@ Website: N/A
 
 License: N/A
 
+### MA: Bureau of Geographic Information (MassGIS) - Master Address Data
+
+Date Accessed: 2021-12-21
+
+Date Created: 2021-12-10
+
+Format: GeoJSON
+
+Filename: us_ma_statewide-addresses-state.geojson.gz
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/0095618aa5752321a6cbafa936d2acf75b5a7a6e/sources/us/ma/statewide.json](https://github.com/openaddresses/openaddresses/blob/0095618aa5752321a6cbafa936d2acf75b5a7a6e/sources/us/ma/statewide.json)
+
+Website: [https://www.mass.gov/info-details/massgis-data-master-address-data-statewide-address-points-for-geocoding](https://www.mass.gov/info-details/massgis-data-master-address-data-statewide-address-points-for-geocoding)
+
+License:
+> All MassGIS data available for download from our website are public records. When using MassGIS data on maps or in digital applications, we ask that you include source credit stated as "Bureau of Geographic Information (MassGIS), Commonwealth of Massachusetts, Executive Office of Technology and Security Services". We recommend that you also note the date of the data as listed at the top of each data layer description page.
+
 ### ME: Office of GIS - E911 Addresses, Roads, Structure
 
 Date Accessed: 2021-12-21
