@@ -52,5 +52,14 @@
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_44_bg.shp"
         }
+    },
+    "NJ": {
+        "address": {
+            "path": "Data/Public/Censuscoding/NJ/20211221/us_nj_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_34_bg.shp"
+        }
     }
 }
