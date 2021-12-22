@@ -49,7 +49,7 @@ Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses
 
 OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/e073937491fcdfa268bc9e5fbcc39f9b213abcd4/sources/us/hi/honolulu.json](https://github.com/openaddresses/openaddresses/blob/e073937491fcdfa268bc9e5fbcc39f9b213abcd4/sources/us/hi/honolulu.json)
 
-Website: https://honolulu-cchnl.opendata.arcgis.com/datasets/cchnl::address-points-1/about
+Website: [https://honolulu-cchnl.opendata.arcgis.com/datasets/cchnl::address-points-1/about](https://honolulu-cchnl.opendata.arcgis.com/datasets/cchnl::address-points-1/about)
 
 License:
 > Information shown on these maps are derived from public records that are constantly undergoing change and do not replace a site survey, and is not warranted for content or accuracy. The City does not guarantee the positional or thematic accuracy of the GIS data. The GIS data or cartographic digital files are not a legal representation of any of the features in which it depicts, and disclaims any assumption of the legal status of which it represents. Any implied warranties, including warranties of merchantibility or fitness for a particular purpose, shall be expressly excluded. The City and County of Honolulu encourages GIS data users to verify the suitability of the data before use. Please report any discrepancies or errors found to gis@honolulu.gov
@@ -89,6 +89,25 @@ OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/e0739
 Website: N/A
 
 License: N/A
+
+### ME: Office of GIS - E911 Addresses, Roads, Structure
+
+Date Accessed: 2021-12-21
+
+Date Created: 2021-05-28
+
+Format: GeoJSON
+
+Filename: us_me_statewide-addresses-state.geojson.gz
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/0095618aa5752321a6cbafa936d2acf75b5a7a6e/sources/us/me/statewide.json](https://github.com/openaddresses/openaddresses/blob/0095618aa5752321a6cbafa936d2acf75b5a7a6e/sources/us/me/statewide.json)
+
+Website: [https://maine.hub.arcgis.com/datasets/b5dc9906157e4b55a661a5c8ec5f04f9/about](https://maine.hub.arcgis.com/datasets/b5dc9906157e4b55a661a5c8ec5f04f9/about)
+
+License:
+> Public Use: User assumes risk
 
 ### NJ: Office of Information Technology, Office of GIS (NJOGIS) - Address Points for NJ - Next Gen 911
 
