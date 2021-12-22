@@ -1,4 +1,13 @@
 {
+    "CO": {
+        "address": {
+            "path": "Data/Public/Censuscoding/CO/20211221/us_co_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_08_bg.shp"
+        }
+    },
     "HI/Hawaii": {
         "address": {
             "path": "Data/Public/Censuscoding/HI/20211218/us_hi_hawaii-addresses-county.geojson.gz",
