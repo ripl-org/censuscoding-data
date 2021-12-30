@@ -13,13 +13,14 @@ for state, config in states.items():
 
   env.Command(
     target=[
-      f"scratch/{state}/address.csv"
+      f"scratch/{state}/address.csv",
+      f"scratch/{state}/address.log"
     ],
     source=[
       "source/clean-{}.py".format(config["address"]["method"]),
       os.path.join(sharepoint, config["address"]["path"])
     ],
-    action="python $SOURCES $TARGETS"
+    action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
   )
 
   env.Command(
