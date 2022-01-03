@@ -10,7 +10,7 @@ Requires python 3.8 on Windows:
 Install required packages with:
 
     pip install -U pip setuptools wheel
-    pip install pandas pyshp rtree scons shapely usaddress
+    pip install pandas pyshp rtree scons shapely usaddress==0.5.10
 
 ## Build
 

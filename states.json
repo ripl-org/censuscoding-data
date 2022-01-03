@@ -79,5 +79,14 @@
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_44_bg.shp"
         }
+    },
+    "VT": {
+        "address": {
+            "path": "Data/Public/Censuscoding/VT/20211222/VT_Data_-_E911_Site_Locations_(address_points).csv.gz",
+            "method": "vt-e911"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_50_bg.shp"
+        }
     }
 }

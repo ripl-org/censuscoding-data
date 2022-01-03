@@ -6,7 +6,7 @@ Date Created: 2021-02-13
 
 Format: GeoJSON
 
-Filename: us_co_statewide-addresses-state.geojson.gz
+Filename: `us_co_statewide-addresses-state.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -24,7 +24,7 @@ Date Created: 2021-12-10
 
 Format: GeoJSON
 
-Filename: us_hi_hawaii-addresses-county.geojson.gz
+Filename: `us_hi_hawaii-addresses-county.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -43,7 +43,7 @@ Date Created: 2021-08-20
 
 Format: GeoJSON
 
-Filename: us_hi_honolulu-addresses-city.geojson.gz
+Filename: `us_hi_honolulu-addresses-city.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -62,7 +62,7 @@ Date Created: 2021-12-10
 
 Format: GeoJSON
 
-Filename: us_hi_kauai-addresses-county.geojson.gz
+Filename: `us_hi_kauai-addresses-county.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -80,7 +80,7 @@ Date Created: 2021-02-14
 
 Format: GeoJSON
 
-Filename: us_hi_maui-addresses-county.geojson.gz
+Filename: `us_hi_maui-addresses-county.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -98,7 +98,7 @@ Date Created: 2021-12-10
 
 Format: GeoJSON
 
-Filename: us_ma_statewide-addresses-state.geojson.gz
+Filename: `us_ma_statewide-addresses-state.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -117,7 +117,7 @@ Date Created: 2021-05-28
 
 Format: GeoJSON
 
-Filename: us_me_statewide-addresses-state.geojson.gz
+Filename: `us_me_statewide-addresses-state.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -136,7 +136,7 @@ Date Created: 2021-04-05
 
 Format: GeoJSON
 
-Filename: us_nj_statewide-addresses-state.geojson.gz
+Filename: `us_nj_statewide-addresses-state.geojson.gz`
 
 Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
 
@@ -162,9 +162,23 @@ Date Created: 2021-05-28
 
 Format: CSV
 
-Filename: E-911_Sites.csv
+Filename: `E-911_Sites.csv`
 
 Website: [https://www.rigis.org/datasets/edc::e-911-sites/about](https://www.rigis.org/datasets/edc::e-911-sites/about)
 
 License:
 > These data are designed and maintained for RI E 9-1-1 mapping software. They are not intended for any other purpose. This dataset is provided 'as is.’ The producer(s) of this dataset, contributors to this dataset, the Rhode Island Geographic Information System (RIGIS) consortium, the State of Rhode Island, and the University of Rhode Island do not make any warranties of any kind for this dataset, and are not liable for any loss or damage however and whenever caused by any use of this dataset. Please acknowledge both RIGIS and the primary producer(s) of this dataset in any derived products. Versions of the RIGIS logo suitable for both printed and web-based products are available at https://www.rigis.org.
+
+### VT: Center for Geographic Information - E911 Site Locations
+
+Date Accessed: 2021-12-22
+
+Date Created: 2021-12-16
+
+Format: CSV
+
+Filename: `VT_Data_-_E911_Site_Locations_(address_points).csv`
+
+Website: [https://geodata.vermont.gov/datasets/VCGI::vt-data-e911-site-locations-address-points-1/about](https://geodata.vermont.gov/datasets/VCGI::vt-data-e911-site-locations-address-points-1/about)
+
+License: N/A

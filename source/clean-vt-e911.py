@@ -5,7 +5,8 @@ import sys
 
 sites_file, out_file = sys.argv[1:]
 
-columns = ["X", "Y", "Post_Code", "Add_Number", "St_Full", "St_Alias1", "St_Alias2", "St_Alias3", "St_Alias4", "St_Alias5"]
+# Don't use ALIAS5 because it frequently contains a datetime values!
+columns = ["GPSX", "GPSY", "ZIP", "HOUSE_NUMBER", "PRIMARYNAME", "ALIAS1", "ALIAS2", "ALIAS3", "ALIAS4"]
 
 sites = (
     pd.read_csv(
@@ -14,8 +15,10 @@ sites = (
         dtype=str
     ).rename(
         columns={
-            "Post_Code": "Zip",
-            "Add_Number": "StreetNum"
+            "GPSX": "X",
+            "GPSY": "Y",
+            "ZIP": "Zip",
+            "HOUSE_NUMBER": "StreetNum"
         }
     )
 )
@@ -34,7 +37,7 @@ sites = (
     pd.melt(
         sites,
         id_vars=["X", "Y", "Zip", "StreetNum"], 
-        value_vars=["St_Full", "St_Alias1", "St_Alias2", "St_Alias3", "St_Alias4", "St_Alias5"]
+        value_vars=["PRIMARYNAME", "ALIAS1", "ALIAS2", "ALIAS3", "ALIAS4"]
     ).rename(
         columns={
             "value": "StreetName"
