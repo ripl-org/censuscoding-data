@@ -179,15 +179,6 @@
             "path": "Data/Public/TIGER/2020/tl_2020_21_bg.shp"
         }
     },
-    "MA": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/MA.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_25_bg.shp"
-        }
-    },
     "MD": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/MD.txt.gz",
@@ -231,15 +222,6 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_37_bg.shp"
-        }
-    },
-    "NJ": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/NJ.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_34_bg.shp"
         }
     },
     "MM": {
