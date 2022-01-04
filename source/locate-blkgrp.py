@@ -18,7 +18,7 @@ for i in range(len(blkgrp)):
     shape_index.insert(i, shapes[i].bounds)
 
 # Load lat/lon
-address = pd.read_csv(address_file, low_memory=False, dtype=str)
+address = pd.read_csv(address_file, dtype=str)
 
 # Locate blockgroup for lat/lon
 def locate(row):

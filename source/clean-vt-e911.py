@@ -1,5 +1,6 @@
 import address
 import csv
+import gzip
 import pandas as pd
 import sys
 
@@ -46,7 +47,7 @@ sites = (
     .reset_index()
 )
 
-with open(out_file, "w") as f:
+with gzip.open(out_file, "wt") as f:
     writer = csv.writer(f)
     writer.writerow(("X", "Y", "StreetNum", "StreetName", "Zip"))
     for record in sites.itertuples():

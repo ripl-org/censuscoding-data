@@ -109,21 +109,17 @@ Website: [https://www.mass.gov/info-details/massgis-data-master-address-data-sta
 License:
 > All MassGIS data available for download from our website are public records. When using MassGIS data on maps or in digital applications, we ask that you include source credit stated as "Bureau of Geographic Information (MassGIS), Commonwealth of Massachusetts, Executive Office of Technology and Security Services". We recommend that you also note the date of the data as listed at the top of each data layer description page.
 
-### ME: Office of GIS - E911 Addresses, Roads, Structure
+### ME: Office of GIS - E911 Addresses
 
-Date Accessed: 2021-12-21
+Date Accessed: 2022-01-04
 
-Date Created: 2021-05-28
+Date Created: 2021-12-23
 
-Format: GeoJSON
+Format: CSV
 
-Filename: `us_me_statewide-addresses-state.geojson.gz`
+Filename: `Maine_E911_Addresses_Feature.csv`
 
-Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
-
-OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/0095618aa5752321a6cbafa936d2acf75b5a7a6e/sources/us/me/statewide.json](https://github.com/openaddresses/openaddresses/blob/0095618aa5752321a6cbafa936d2acf75b5a7a6e/sources/us/me/statewide.json)
-
-Website: [https://maine.hub.arcgis.com/datasets/b5dc9906157e4b55a661a5c8ec5f04f9/about](https://maine.hub.arcgis.com/datasets/b5dc9906157e4b55a661a5c8ec5f04f9/about)
+Website: [https://maine.hub.arcgis.com/datasets/maine::maine-e911-addresses-feature/about](https://maine.hub.arcgis.com/datasets/maine::maine-e911-addresses-feature/about)
 
 License:
 > Public Use: User assumes risk

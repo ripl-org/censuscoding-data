@@ -55,8 +55,8 @@
     },
     "ME": {
         "address": {
-            "path": "Data/Public/Censuscoding/ME/20211221/us_me_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
+            "path": "Data/Public/Censuscoding/ME/20220104/Maine_E911_Addresses_Feature.csv.gz",
+            "method": "me-e911"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_23_bg.shp"

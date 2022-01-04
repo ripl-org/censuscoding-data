@@ -13,27 +13,30 @@ env.CacheDir(os.path.join(sharepoint, "Data/Public/Censuscoding/scons-cache"))
 
 for state, config in states.items():
 
-  env.Command(
-    target=[
-      f"scratch/{state}/address.csv",
-      f"scratch/{state}/address.log"
-    ],
-    source=[
-      "source/clean-{}.py".format(config["address"]["method"]),
-      os.path.join(sharepoint, config["address"]["path"])
-    ],
-    action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
+  env.Depends(
+    env.Command(
+      target=[
+        f"scratch/{state}/address.csv.gz",
+        f"scratch/{state}/address.log"
+      ],
+      source=[
+        "source/clean-{}.py".format(config["address"]["method"]),
+        os.path.join(sharepoint, config["address"]["path"])
+      ],
+      action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
+    ),
+    ["source/address.py"]
   )
 
   env.Command(
     target=[
-      f"scratch/{state}/address-blkgrp.csv",
+      f"scratch/{state}/address-blkgrp.csv.gz",
       f"scratch/{state}/address-blkgrp.log"
     ],
     source=[
       "source/locate-blkgrp.py",
       os.path.join(sharepoint, config["blkgrp"]["path"]),
-      f"scratch/{state}/address.csv"
+      f"scratch/{state}/address.csv.gz"
     ],
     action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
   )
@@ -46,7 +49,7 @@ for state, config in states.items():
     ],
     source=[
       "source/zip-lookups.py",
-      f"scratch/{state}/address-blkgrp.csv",
+      f"scratch/{state}/address-blkgrp.csv.gz",
       Value("BlockGroup")
     ],
     action="python $SOURCES ${TARGETS[0]} ${TARGETS[1]} >${TARGETS[2]}"

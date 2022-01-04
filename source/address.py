@@ -9,21 +9,23 @@ def normalize(address):
     # Remove problematic street types that confuse uaddress
     address = "".join(c for c in address.upper() if c.isalnum() or c==" ")
     if address.endswith(" STATE PARK"):
-        address = address.rstrip(" STATE PARK")
+        address = address.rstrip(" STATE PARK") + " ST"
     elif address.endswith(" TRAILER PARK"):
-        address = address.rstrip(" TRAILER PARK")
+        address = address.rstrip(" TRAILER PARK") + " ST"
     elif address.endswith(" SHOPPING PARK"):
-        address = address.rstrip(" SHOPPING PARK")
+        address = address.rstrip(" SHOPPING PARK") + " ST"
     elif address.endswith(" PARK"):
-        address = address.rstrip(" PARK")
+        address = address.rstrip(" PARK") + " ST"
     elif address.endswith(" MOBILE MNR"):
-        address = address.rstrip(" MOBILE MNR")
+        address = address.rstrip(" MOBILE MNR") + " ST"
     elif address.endswith(" CT"):
-        address = address.rstrip(" CT")
+        address = address.rstrip(" CT") + " ST"
     elif address.endswith(" HWY"):
-        address = address.rstrip(" HWY")
+        address = address.rstrip(" HWY") + " ST"
     elif address.endswith(" COUNTY RD"):
-        address = address.rstrip(" RD") # Only remove RD
+        address = address.rstrip(" RD") + " ST" # Only remove RD
+    elif address.endswith(" STATE RD"):
+        address = address.rstrip(" RD") + " ST" # Only remove RD
 
     # Tag address with usaddress
     try:

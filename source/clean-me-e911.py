@@ -6,7 +6,8 @@ import sys
 
 sites_file, out_file = sys.argv[1:]
 
-columns = ["X", "Y", "Post_Code", "Add_Number", "St_Full", "St_Alias1", "St_Alias2", "St_Alias3", "St_Alias4", "St_Alias5"]
+# Don't use ALIAS5 because it frequently contains a datetime values!
+columns = ["LONGITUDE", "LATITUDE", "ZIPCODE", "ADDRESS_NUMBER", "RDNAME"]
 
 sites = (
     pd.read_csv(
@@ -15,34 +16,24 @@ sites = (
         dtype=str
     ).rename(
         columns={
-            "Post_Code": "Zip",
-            "Add_Number": "StreetNum"
+            "LONGITUDE": "X",
+            "LATITUDE": "Y",
+            "ZIPCODE": "Zip",
+            "ADDRESS_NUMBER": "StreetNum",
+            "RDNAME": "StreetName"
         }
     )
 )
 
-# Retain sites with known lat/lon, zip and house number
+# Retain sites with known distinct lat/lon, zip and house number
 sites = sites[
     sites.X.notnull() &
     sites.Y.notnull() &
+    (sites.X != sites.Y) &
     sites.Zip.notnull() &
     sites.StreetNum.notnull() &
     (sites.StreetNum != "0")
 ]
-
-# Melt and remove empty addresses
-sites = (
-    pd.melt(
-        sites,
-        id_vars=["X", "Y", "Zip", "StreetNum"], 
-        value_vars=["St_Full", "St_Alias1", "St_Alias2", "St_Alias3", "St_Alias4", "St_Alias5"]
-    ).rename(
-        columns={
-            "value": "StreetName"
-        }
-    ).dropna()
-    .reset_index()
-)
 
 with gzip.open(out_file, "wt") as f:
     writer = csv.writer(f)
