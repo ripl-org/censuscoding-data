@@ -1,4 +1,13 @@
 {
+    "AK": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/AK.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_02_bg.shp"
+        }
+    },
     "CO": {
         "address": {
             "path": "Data/Public/Censuscoding/CO/20211221/us_co_statewide-addresses-state.geojson.gz",
