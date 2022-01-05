@@ -178,3 +178,309 @@ Filename: `VT_Data_-_E911_Site_Locations_(address_points).csv`
 Website: [https://geodata.vermont.gov/datasets/VCGI::vt-data-e911-site-locations-address-points-1/about](https://geodata.vermont.gov/datasets/VCGI::vt-data-e911-site-locations-address-points-1/about)
 
 License: N/A
+
+### NE: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_ne_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/ne/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/ne/statewide.json)
+
+Website: [https://gis.ne.gov/Enterprise/rest/services/location/FeatureServer/3](https://gis.ne.gov/Enterprise/rest/services/location/FeatureServer/3)
+
+License: N/A
+
+### MT: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_mt_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/mt/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/mt/statewide.json)
+
+Website: [https://geoinfo.msl.mt.gov/home/msdi/structures_and_addresses.aspx](https://geoinfo.msl.mt.gov/home/msdi/structures_and_addresses.aspx)
+
+License: N/A
+
+### FL: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2016
+
+Format: GeoJSON
+
+Filename: `us_mt_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/fl/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/fl/statewide.json)
+
+Website: [https://www.mapwise.com/data/florida_mapwise.zip](https://www.mapwise.com/data/florida_mapwise.zip)
+
+License: Public Domain (MapWise: https://github.com/openaddresses/openaddresses/issues/1633#issuecomment-202908172)
+
+### FL: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2016
+
+Format: GeoJSON
+
+Filename: `us_fl_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/fl/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/fl/statewide.json)
+
+Website: [https://www.mapwise.com/data/florida_mapwise.zip](https://www.mapwise.com/data/florida_mapwise.zip)
+
+License: Public Domain (MapWise: https://github.com/openaddresses/openaddresses/issues/1633#issuecomment-202908172)
+
+### WI: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2014
+
+Format: GeoJSON
+
+Filename: `us_wi_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/wi/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/wi/statewide.json)
+
+Website: [http://openaddresses.s3.amazonaws.com/us-wi-statewide.csv.zip](http://openaddresses.s3.amazonaws.com/us-wi-statewide.csv.zip)
+
+License: This is a CSV extraction of the address points layer in http://psc.wi.gov/utilityInfo/tele/broadband/documents/LinkWISCONSIN_EBM_ParcelAddress_Data.zip
+
+### VA: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2019
+
+Format: GeoJSON
+
+Filename: `us_va_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/va/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/va/statewide.json)
+
+Website: [https://gismaps.vita.virginia.gov/arcgis/rest/services/VA_Base_layers/VA_Address_Points/MapServer/0](https://gismaps.vita.virginia.gov/arcgis/rest/services/VA_Base_layers/VA_Address_Points/MapServer/0)
+
+License: Public Domain
+
+### UT: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_va_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/ut/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/ut/statewide.json)
+
+Website: [https://gis.utah.gov/data/location/address-data/#AddressPoints](https://gis.utah.gov/data/location/address-data/#AddressPoints)
+
+License: Public Domain
+
+### TX: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_tx_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/tx/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/tx/statewide.json)
+
+Website: [https://data.tnris.org/collection?c=94502179-9389-4bfa-b753-5e43f6d477bf](https://data.tnris.org/collection?c=94502179-9389-4bfa-b753-5e43f6d477bf)
+
+License: Public Domain
+
+### SD: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_sd_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/sd/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/sd/statewide.json)
+
+Website: [http://arcgis.sd.gov/arcgis/rest/services/BIT/AddressViewer/MapServer/0](http://arcgis.sd.gov/arcgis/rest/services/BIT/AddressViewer/MapServer/0)
+
+License: ?
+
+### NY: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_ny_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/ny/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/ny/statewide.json)
+
+Website: [http://gis.ny.gov/gisdata/inventories/details.cfm?DSID=921](http://gis.ny.gov/gisdata/inventories/details.cfm?DSID=921)
+
+License: Public Domain
+
+### NM: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2021
+
+Format: GeoJSON
+
+Filename: `us_nm_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/nm/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/nm/statewide.json)
+
+Website: [http://rgis.unm.edu/rgis6/](http://rgis.unm.edu/rgis6/)
+
+License: ?
+
+### NM: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2021
+
+Format: GeoJSON
+
+Filename: `us_nm_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/nm/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/nm/statewide.json)
+
+Website: [http://rgis.unm.edu/rgis6/](http://rgis.unm.edu/rgis6/)
+
+License: ?
+
+### NC: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_nc_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/nc/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/nc/statewide.json)
+
+Website: [https://www.nconemap.gov](https://www.nconemap.gov)
+
+License: NC OneMap, unrestricted use but citation required for publication
+
+### MD: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_md_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/md/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/md/statewide.json)
+
+Website: [http://geodata.md.gov/imap/rest/services/PlanningCadastre/MD_PropertyData/MapServer/exts/MDiMapDataDownload/customLayers/0](http://geodata.md.gov/imap/rest/services/PlanningCadastre/MD_PropertyData/MapServer/exts/MDiMapDataDownload/customLayers/0)
+
+License: ?
+
+### KS: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: ?
+
+Format: GeoJSON
+
+Filename: `us_ks_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/ks/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/ks/statewide.json)
+
+Website: [http://mapserver.kansasgis.org/arcgis/rest/services/ORKA/KS_ORKA_Extras/MapServer/0](http://mapserver.kansasgis.org/arcgis/rest/services/ORKA/KS_ORKA_Extras/MapServer/0)
+
+License: ?
+
+### IN: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2015
+
+Format: GeoJSON
+
+Filename: `us_in_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/in/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/in/statewide.json)
+
+Website: [http://maps.indiana.edu/previewMaps/Infrastructure/Streets_Address_Points_IDHS.html](http://maps.indiana.edu/previewMaps/Infrastructure/Streets_Address_Points_IDHS.html)
+
+License: ?
+
+### IA: Statewide Aggregate Addresses
+
+Date Accessed: 2022-01-04
+
+Date Created: 2015?
+
+Format: GeoJSON
+
+Filename: `us_ia_statewide-addresses-state.geojson.gz`
+
+Download Site: [https://batch.openaddresses.io/data](https://batch.openaddresses.io/data)
+
+OpenAddresses Source: [https://github.com/openaddresses/openaddresses/blob/master/sources/us/ia/statewide.json](https://github.com/openaddresses/openaddresses/blob/master/sources/us/ia/statewide.json)
+
+Website: [https://data.openaddresses.io/cache/uploads/ingalls/bdc482/IOWA_911_ADDRESSES.zip](https://data.openaddresses.io/cache/uploads/ingalls/bdc482/IOWA_911_ADDRESSES.zip)
+
+License: ?
