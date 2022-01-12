@@ -8,6 +8,24 @@
             "path": "Data/Public/TIGER/2020/tl_2020_02_bg.shp"
         }
     },
+    "AR": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/AR.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_05_bg.shp"
+        }
+    },
+    "AZ": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/AZ.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_04_bg.shp"
+        }
+    },
     "CO": {
         "address": {
             "path": "Data/Public/Censuscoding/CO/20211221/us_co_statewide-addresses-state.geojson.gz",
@@ -15,6 +33,42 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_08_bg.shp"
+        }
+    },
+    "CT": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/CT.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_09_bg.shp"
+        }
+    },
+    "DC": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/DC.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_11_bg.shp"
+        }
+    },
+    "DE": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/DE.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_10_bg.shp"
+        }
+    },
+    "FL": {
+        "address": {
+            "path": "Data/Public/Censuscoding/FL/20220104/us_fl_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_12_bg.shp"
         }
     },
     "HI/Hawaii": {
@@ -53,96 +107,6 @@
             "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
         }
     },
-    "MA": {
-        "address": {
-            "path": "Data/Public/Censuscoding/MA/20211221/us_ma_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_25_bg.shp"
-        }
-    },
-    "ME": {
-        "address": {
-            "path": "Data/Public/Censuscoding/ME/20220104/Maine_E911_Addresses_Feature.csv.gz",
-            "method": "me-e911"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_23_bg.shp"
-        }
-    },
-    "NJ": {
-        "address": {
-            "path": "Data/Public/Censuscoding/NJ/20211221/us_nj_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_34_bg.shp"
-        }
-    },
-    "RI": {
-        "address": {
-            "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
-            "method": "ri-e911"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_44_bg.shp"
-        }
-    },
-    "VT": {
-        "address": {
-            "path": "Data/Public/Censuscoding/VT/20211222/VT_Data_-_E911_Site_Locations_(address_points).csv.gz",
-            "method": "vt-e911"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_50_bg.shp"
-        }
-    },
-    "AR": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/AR.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_05_bg.shp"
-        }
-    },
-    "AZ": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/AZ.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_04_bg.shp"
-        }
-    },
-    "CT": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/CT.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_09_bg.shp"
-        }
-    },
-    "DC": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/DC.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_11_bg.shp"
-        }
-    },
-    "DE": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/DE.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_10_bg.shp"
-        }
-    },
     "IA": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/IA.txt.gz",
@@ -179,6 +143,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_21_bg.shp"
         }
     },
+    "MA": {
+        "address": {
+            "path": "Data/Public/Censuscoding/MA/20211221/us_ma_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_25_bg.shp"
+        }
+    },
     "MD": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/MD.txt.gz",
@@ -186,6 +159,15 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_24_bg.shp"
+        }
+    },
+    "ME": {
+        "address": {
+            "path": "Data/Public/Censuscoding/ME/20220104/Maine_E911_Addresses_Feature.csv.gz",
+            "method": "me-e911"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_23_bg.shp"
         }
     },
     "MN": {
@@ -206,6 +188,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_29_bg.shp"
         }
     },
+    "MT": {
+        "address": {
+            "path": "Data/Public/Censuscoding/MT/20220104/us_mt_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_30_bg.shp"
+        }
+    },
     "NC": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/NC.txt.gz",
@@ -213,6 +204,24 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_37_bg.shp"
+        }
+    },
+    "NE": {
+        "address": {
+            "path": "Data/Public/Censuscoding/NE/20220104/us_ne_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_31_bg.shp"
+        }
+    },
+    "NJ": {
+        "address": {
+            "path": "Data/Public/Censuscoding/NJ/20211221/us_nj_statewide-addresses-state.geojson.gz",
+            "method": "openaddresses"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_34_bg.shp"
         }
     },
     "NM": {
@@ -251,6 +260,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_41_bg.shp"
         }
     },
+    "RI": {
+        "address": {
+            "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
+            "method": "ri-e911"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_44_bg.shp"
+        }
+    },
     "SD": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/SD.txt.gz",
@@ -287,6 +305,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_51_bg.shp"
         }
     },
+    "VT": {
+        "address": {
+            "path": "Data/Public/Censuscoding/VT/20211222/VT_Data_-_E911_Site_Locations_(address_points).csv.gz",
+            "method": "vt-e911"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_50_bg.shp"
+        }
+    },
     "WI": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/WI.txt.gz",
@@ -294,33 +321,6 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_55_bg.shp"
-        }
-    },
-    "FL": {
-        "address": {
-            "path": "Data/Public/Censuscoding/FL/20220104/us_fl_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_12_bg.shp"
-        }
-    },
-    "MT": {
-        "address": {
-            "path": "Data/Public/Censuscoding/MT/20220104/us_mt_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_30_bg.shp"
-        }
-    },
-    "NE": {
-        "address": {
-            "path": "Data/Public/Censuscoding/NE/20220104/us_ne_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_31_bg.shp"
         }
     }
 }
