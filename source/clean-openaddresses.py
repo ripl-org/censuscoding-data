@@ -1,8 +1,8 @@
-import address
 import gzip
 import json
 import pandas as pd
 import sys
+from address import extract_street_num, normalize_street
 
 geojson_file, out_file = sys.argv[1:]
 
@@ -33,7 +33,8 @@ for i, line in enumerate(gzip.open(geojson_file), start=1):
         continue
 
     # Normalize and save record
-    StreetName = address.normalize(f"{StreetNum} {StreetName}")
+    StreetNum = extract_street_num(StreetNum)
+    StreetName = normalize_street(f"{StreetNum} {StreetName}")
     if StreetName is not None:
         data["X"].append(X)
         data["Y"].append(Y)
