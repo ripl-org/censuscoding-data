@@ -30,8 +30,8 @@ nums = nums.loc[nums[geo_level].notnull(), index + [geo_level]]
 # Rename columns as required by censuscoding pkg
 names.rename(columns={"StreetName": "street", "Zip": "zip", "BlockGroup": "blkgrp"}, inplace=True)
 nums.rename(columns={"StreetNum": "street_num", "StreetName": "street", "Zip": "zip", "BlockGroup": "blkgrp"}, inplace=True)
-names.to_csv(name_file, index=False)
-nums.to_csv(num_file, index=False)
+names.to_csv(name_file, columns=["zip", "street", "blkgrp"], index=False)
+nums.to_csv(num_file, columns=["zip", "street", "street_num", "blkgrp"], index=False)
 
 print(len(nums), "street nums/names with unique", geo_level)
 
