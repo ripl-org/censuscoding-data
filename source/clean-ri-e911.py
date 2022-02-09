@@ -1,8 +1,8 @@
-import address
 import csv
 import gzip
 import pandas as pd
 import sys
+from address import normalize_street
 
 sites_file, out_file = sys.argv[1:]
 
@@ -44,10 +44,10 @@ sites = (
     .reset_index()
 )
 
-with gzip.open(out_file, "wt") as f:
+with gzip.open(out_file, "wt", encoding="ascii") as f:
     writer = csv.writer(f)
     writer.writerow(("X", "Y", "StreetNum", "StreetName", "Zip"))
     for record in sites.itertuples():
-        StreetName = address.normalize(f"{record.StreetNum} {record.StreetName}")
+        StreetName = normalize_street(f"{record.StreetNum} {record.StreetName}")
         if StreetName is not None:
             writer.writerow((record.X, record.Y, record.StreetNum, StreetName, record.Zip))

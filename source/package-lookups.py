@@ -1,32 +1,35 @@
-import csv
 import gzip
 import json
+import os
+import pickle
 import sys
 from collections import defaultdict
 
-names_file, nums_file, out_file = sys.argv[1:]
+lookup_file, out_file = sys.argv[1:]
 
-lookup = defaultdict(dict)
+out_dir = os.path.splitext(out_file)[0]
+if not os.path.exists(out_dir):
+    os.makedirs(out_dir)
 
-# Add street names
-with gzip.open(names_file, "rt") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        lookup[row["zip"]][row["street"]] = row["blkgrp"]
+print("Reading lookup")
+with gzip.open(lookup_file, "rt", encoding="ascii") as f:
+    lookup = json.load(f)
 
-# Add street_num ranges
-with gzip.open(nums_file, "rt") as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        if not row["street"] in lookup[row["zip"]]:
-            lookup[row["zip"]][row["street"]] = [[],[]]
-        lookup[row["zip"]][row["street"]][0].append(row["street_num"])
-        lookup[row["zip"]][row["street"]][1].append(row["blkgrp"])
+# Pickle at the 2-digit zipcode level
 
-# Save as compressed json per zipcode
-out_dir = os.path.dirname(out_file)
-for zip5 in lookup:
-    with gzip.open(os.path.join(out_dir, zip5 + ".json.gz"), "wt") as f:
-        json.dump(lookup[zip5], f)
-with gzip.open(outfile, "wt") as f:
-    json.dump(lookup, f)
+packaged = defaultdict(dict)
+for z in lookup:
+    zip5 = z.zfill(5)
+    if zip5 != "00000":
+        zz = zip5[:2]
+        zzz = zip5[2:]
+        packaged[zz][zzz] = lookup[z]
+
+for zz in packaged:
+    path = os.path.join(out_dir, zz)
+    with open(path, "wb") as f:
+        pickle.dump(packaged[zz], f)
+
+with open(out_file, "w") as f:
+    for zz in packaged:
+        print(zz, file=f)

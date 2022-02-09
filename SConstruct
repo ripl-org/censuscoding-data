@@ -57,6 +57,44 @@ for state, config in states.items():
     action="python $SOURCES ${TARGETS[0]} ${TARGETS[1]} >${TARGETS[2]}"
   )
 
+# Merge and package lookups
+
+env.Command(
+  target=[
+    "scratch/lookups/street.json.gz"
+  ],
+  source=(
+    ["source/merge-lookups-street.py"] +
+    [f"scratch/lookups/{state}/lookup-street.csv.gz" for state in states]
+  ),
+  action="python $SOURCES $TARGET"
+)
+
+env.Command(
+  target=[
+    "scratch/lookups/street-num.json.gz"
+  ],
+  source=(
+    [
+      "source/merge-lookups-street-num.py", 
+      "scratch/lookups/street.json.gz"
+    ] +
+    [f"scratch/lookups/{state}/lookup-street-num.csv.gz" for state in states]
+  ),
+  action="python $SOURCES $TARGET"
+)
+
+env.Command(
+  target=[
+    "scratch/package.log"
+  ],
+  source=[
+    "source/package-lookups.py",
+    "scratch/lookups/street-num.json.gz"
+  ],
+  action="python $SOURCES $TARGET"
+)
+
 # Analysis data
 
 env.Command(
@@ -113,4 +151,4 @@ env.Command(
   action="python $SOURCES $TARGET"
 )
 
-# vim: syntax=python expandtab sw=4 ts=4
+# vim: syntax=python expandtab sw=2 ts=2

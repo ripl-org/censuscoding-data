@@ -1,8 +1,21 @@
-import pandas as pd
+import csv
+import gzip
+import json
 import sys
+from collections import defaultdict
 
 in_files = sys.argv[1:-1]
 out_file = sys.argv[-1]
 
-lookup = pd.concat([pd.read_csv(f, dtype=str) for f in in_files], ignore_index=True)
-lookup.sort_values(["zip", "street"]).drop_duplicates().to_csv(out_file, index=False)
+lookup = defaultdict(dict)
+
+for in_file in in_files:
+    print(in_file)
+    with gzip.open(in_file, "rt", encoding="ascii") as f:
+        reader = csv.DictReader(f)
+        for record in reader:
+            lookup[int(record["zip"])][record["street"]] = record["blkgrp"]
+
+print("Writing output")
+with gzip.open(out_file, "wt", encoding="ascii") as f:
+    json.dump(lookup, f)

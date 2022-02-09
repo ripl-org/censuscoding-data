@@ -26,10 +26,28 @@
             "path": "Data/Public/TIGER/2020/tl_2020_04_bg.shp"
         }
     },
+    "CA": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/CA.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_06_bg.shp"
+        }
+    },
+    "CA/SanFrancisco": {
+        "address": {
+            "path": "Data/Public/Censuscoding/CA/SanFrancisco/20220203/Addresses_-_Enterprise_Addressing_System.csv.gz",
+            "method": "ca-sf"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_06_bg.shp"
+        }
+    },
     "CO": {
         "address": {
-            "path": "Data/Public/Censuscoding/CO/20211221/us_co_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/CO.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_08_bg.shp"
@@ -89,24 +107,6 @@
             "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
         }
     },
-    "HI/Kauai": {
-        "address": {
-            "path": "Data/Public/Censuscoding/HI/20211218/us_hi_kauai-addresses-county.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
-        }
-    },
-    "HI/Maui": {
-        "address": {
-            "path": "Data/Public/Censuscoding/HI/20211218/us_hi_maui-addresses-county.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_15_bg.shp"
-        }
-    },
     "IA": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/IA.txt.gz",
@@ -134,19 +134,19 @@
             "path": "Data/Public/TIGER/2020/tl_2020_20_bg.shp"
         }
     },
-    "KY": {
+    "LA": {
         "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/KY.txt.gz",
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/LA.txt.gz",
             "method": "usdot-nad"
         },
         "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_21_bg.shp"
+            "path": "Data/Public/TIGER/2020/tl_2020_22_bg.shp"
         }
     },
     "MA": {
         "address": {
-            "path": "Data/Public/Censuscoding/MA/20211221/us_ma_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/MA.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_25_bg.shp"
@@ -163,8 +163,8 @@
     },
     "ME": {
         "address": {
-            "path": "Data/Public/Censuscoding/ME/20220104/Maine_E911_Addresses_Feature.csv.gz",
-            "method": "me-e911"
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/ME.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_23_bg.shp"
@@ -190,8 +190,8 @@
     },
     "MT": {
         "address": {
-            "path": "Data/Public/Censuscoding/MT/20220104/us_mt_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/MT.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_30_bg.shp"
@@ -204,15 +204,6 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_37_bg.shp"
-        }
-    },
-    "NE": {
-        "address": {
-            "path": "Data/Public/Censuscoding/NE/20220104/us_ne_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_31_bg.shp"
         }
     },
     "NJ": {
@@ -278,6 +269,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_46_bg.shp"
         }
     },
+    "TN": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/TN.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_47_bg.shp"
+        }
+    },
     "TX": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/TX.txt.gz",
@@ -321,6 +321,15 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_55_bg.shp"
+        }
+    },
+    "WY": {
+        "address": {
+            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/WY.txt.gz",
+            "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_56_bg.shp"
         }
     }
 }

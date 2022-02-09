@@ -1,10 +1,13 @@
 import gzip
 import json
 import pandas as pd
+import re
 import sys
 from address import extract_street_num, normalize_street
 
 geojson_file, out_file = sys.argv[1:]
+
+re_num = re.compile(r"[0-9]+")
 
 data = {
     "X": [],
@@ -33,9 +36,9 @@ for i, line in enumerate(gzip.open(geojson_file), start=1):
         continue
 
     # Normalize and save record
-    StreetNum = extract_street_num(StreetNum)
+    StreetNum = extract_street_num(StreetNum).strip("*")
     StreetName = normalize_street(f"{StreetNum} {StreetName}")
-    if StreetName is not None:
+    if re_num.fullmatch(StreetNum) is not None and StreetName is not None:
         data["X"].append(X)
         data["Y"].append(Y)
         data["StreetNum"].append(StreetNum)
@@ -44,4 +47,4 @@ for i, line in enumerate(gzip.open(geojson_file), start=1):
 
 # Print output to CSV
 df = pd.DataFrame(data)
-df.to_csv(out_file, index=False)
+df.to_csv(out_file, encoding="ascii", index=False)
