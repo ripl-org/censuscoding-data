@@ -2,7 +2,7 @@ import csv
 import gzip
 import pandas as pd
 import sys
-from address import transliterate
+from source.address import transliterate
 
 sites_file, out_file = sys.argv[1:]
 

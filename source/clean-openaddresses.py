@@ -3,7 +3,7 @@ import json
 import pandas as pd
 import re
 import sys
-from address import extract_street_num, normalize_street
+from source.address import extract_street_num, normalize_street
 
 geojson_file, out_file = sys.argv[1:]
 

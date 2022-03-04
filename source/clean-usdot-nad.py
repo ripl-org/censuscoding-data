@@ -2,7 +2,7 @@ import csv
 import gzip
 import re
 import sys
-from address import normalize_directional, transliterate
+from source.address import normalize_directional, transliterate
 
 in_file, out_file = sys.argv[1:]
 
