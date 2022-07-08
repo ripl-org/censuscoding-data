@@ -112,7 +112,7 @@ env.Command(
       "Data/Public/CMS-NPI/20211214/pl_pfile_20050523-20211212.csv.gz"
     )
   ],
-  action="python $SOURCES $TARGET"
+  action="python $SOURCES $TARGET >${TARGET}.log"
 )
 
 env.Command(
@@ -130,7 +130,7 @@ env.Command(
       "Data/Public/USPTO/Patent Assignment Dataset/2020/assignee.csv.gz"
     )
   ],
-  action="python $SOURCES $TARGET"
+  action="python $SOURCES $TARGET >${TARGET}.log"
 )
 
 env.Command(
@@ -148,7 +148,18 @@ env.Command(
       "Data/Public/USPTO/Trademark Assignment Dataset/2020/tm_assignee.csv.gz"
     )
   ],
-  action="python $SOURCES $TARGET"
+  action="python $SOURCES $TARGET >${TARGET}.log"
 )
+
+for test in ["npi", "uspto-pat", "uspto-tm"]:
+  env.Command(
+    target=[
+      f"scratch/analysis/{test}-addresses-censuscoded.csv"
+    ],
+    source=[
+      f"scratch/analysis/{test}-addresses.csv"
+    ],
+    action="censuscoding -i $SOURCE -o $TARGET >${TARGET}.log"
+  )
 
 # vim: syntax=python expandtab sw=2 ts=2
