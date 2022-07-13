@@ -2,7 +2,7 @@ import csv
 import gzip
 import pandas as pd
 import sys
-from source.address import normalize_street
+from address import normalize_street
 
 sites_file, out_file = sys.argv[1:]
 

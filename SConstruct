@@ -2,24 +2,61 @@ import json
 import os
 
 env = Environment(ENV=os.environ)
+env["ENV"]["CENSUSCODING_DATA"] = "scratch/package"
 sharepoint = os.path.join(
   os.path.expanduser("~"),
   "Research Improving People's Lives",
   "RIPL All Staff - Documents"
 )
+tiger = os.path.join(sharepoint, "Data", "Public", "TIGER", "2020")
+counties = [x.strip() for x in open("counties.txt")]
 states = json.load(open("states.json"))
 
 #env.CacheDir(os.path.join(sharepoint, "Data/Public/Censuscoding/scons-cache"))
 
-# State lookups
+# Line-based lookups from TIGER
+
+for county in counties:
+
+  env.Depends(
+    env.Command(
+      target=[
+        f"scratch/lookups/line/{county}/address-blkgrp.csv.gz",
+        f"scratch/lookups/line/{county}/address-blkgrp.log"
+      ],
+      source=[
+        "source/clean-tiger.py",
+        os.path.join(tiger, "ADDRFEAT", f"tl_2020_{county}_addrfeat.zip"),
+        os.path.join(tiger, "FACES", f"tl_2020_{county}_faces.zip")
+      ],
+      action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
+    ),
+    ["source/address.py"]
+  )
+
+  env.Command(
+    target=[
+      f"scratch/lookups/line/{county}/lookup-street.csv.gz",
+      f"scratch/lookups/line/{county}/lookup-street-num.csv.gz",
+      f"scratch/lookups/line/{county}/lookup-street.log"
+    ],
+    source=[
+      "source/build-lookups.py",
+      f"scratch/lookups/line/{county}/address-blkgrp.csv.gz",
+      Value("BlockGroup")
+    ],
+    action="python $SOURCES ${TARGETS[0]} ${TARGETS[1]} >${TARGETS[2]}"
+  )
+
+# Point-based lookups from NAD and states/counties/cities
 
 for state, config in states.items():
 
   env.Depends(
     env.Command(
       target=[
-        f"scratch/lookups/{state}/address.csv.gz",
-        f"scratch/lookups/{state}/address.log"
+        f"scratch/lookups/point/{state}/address.csv.gz",
+        f"scratch/lookups/point/{state}/address.log"
       ],
       source=[
         "source/clean-{}.py".format(config["address"]["method"]),
@@ -32,26 +69,26 @@ for state, config in states.items():
 
   env.Command(
     target=[
-      f"scratch/lookups/{state}/address-blkgrp.csv.gz",
-      f"scratch/lookups/{state}/address-blkgrp.log"
+      f"scratch/lookups/point/{state}/address-blkgrp.csv.gz",
+      f"scratch/lookups/point/{state}/address-blkgrp.log"
     ],
     source=[
       "source/locate-blkgrp.py",
       os.path.join(sharepoint, config["blkgrp"]["path"]),
-      f"scratch/lookups/{state}/address.csv.gz"
+      f"scratch/lookups/point/{state}/address.csv.gz"
     ],
     action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
   )
 
   env.Command(
     target=[
-      f"scratch/lookups/{state}/lookup-street.csv.gz",
-      f"scratch/lookups/{state}/lookup-street-num.csv.gz",
-      f"scratch/lookups/{state}/lookup-street.log"
+      f"scratch/lookups/point/{state}/lookup-street.csv.gz",
+      f"scratch/lookups/point/{state}/lookup-street-num.csv.gz",
+      f"scratch/lookups/point/{state}/lookup-street.log"
     ],
     source=[
       "source/build-lookups.py",
-      f"scratch/lookups/{state}/address-blkgrp.csv.gz",
+      f"scratch/lookups/point/{state}/address-blkgrp.csv.gz",
       Value("BlockGroup")
     ],
     action="python $SOURCES ${TARGETS[0]} ${TARGETS[1]} >${TARGETS[2]}"
@@ -61,36 +98,36 @@ for state, config in states.items():
 
 env.Command(
   target=[
-    "scratch/lookups/street.json.gz"
+    "scratch/lookups/point/street.json.gz"
   ],
   source=(
     ["source/merge-lookups-street.py"] +
-    [f"scratch/lookups/{state}/lookup-street.csv.gz" for state in states]
+    [f"scratch/lookups/point/{state}/lookup-street.csv.gz" for state in states]
   ),
   action="python $SOURCES $TARGET"
 )
 
 env.Command(
   target=[
-    "scratch/lookups/street-num.json.gz"
+    "scratch/lookups/point/street-num.json.gz"
   ],
   source=(
     [
       "source/merge-lookups-street-num.py", 
-      "scratch/lookups/street.json.gz"
+      "scratch/lookups/point/street.json.gz"
     ] +
-    [f"scratch/lookups/{state}/lookup-street-num.csv.gz" for state in states]
+    [f"scratch/lookups/point/{state}/lookup-street-num.csv.gz" for state in states]
   ),
   action="python $SOURCES $TARGET"
 )
 
 env.Command(
   target=[
-    "scratch/package.log"
+    "scratch/package/point/package.log"
   ],
   source=[
     "source/package-lookups.py",
-    "scratch/lookups/street-num.json.gz"
+    "scratch/lookups/point/street-num.json.gz"
   ],
   action="python $SOURCES $TARGET"
 )
@@ -157,9 +194,10 @@ for test in ["npi", "uspto-pat", "uspto-tm"]:
       f"scratch/analysis/{test}-addresses-censuscoded.csv"
     ],
     source=[
-      f"scratch/analysis/{test}-addresses.csv"
+      f"scratch/analysis/{test}-addresses.csv",
+      "scratch/package.log"
     ],
-    action="censuscoding -i $SOURCE -o $TARGET >${TARGET}.log"
+    action="censuscoding --preserve -i $SOURCE -o $TARGET >${TARGET}.log"
   )
 
 # vim: syntax=python expandtab sw=2 ts=2
