@@ -6,14 +6,14 @@ npi_file, pl_file, out_file = sys.argv[1:]
 npi_columns = {
     "NPI": "record_id",
     "Provider First Line Business Practice Location Address": "address",
-    "Provider Business Practice Location Address Postal Code": "zip_code",
+    "Provider Business Practice Location Address Postal Code": "zipcode",
     "Last Update Date": "year"
 }
 
 pl_columns = {
     "NPI": "record_id",
     "Provider Secondary Practice Location Address- Address Line 1": "address",
-    "Provider Secondary Practice Location Address - Postal Code": "zip_code"
+    "Provider Secondary Practice Location Address - Postal Code": "zipcode"
 }
 
 
@@ -27,11 +27,11 @@ pl = pd.read_csv(pl_file, usecols=pl_columns.keys(), dtype=str).rename(columns=p
 addresses = pd.concat([npi, pl], ignore_index=True).merge(years, how="left", on="record_id")
 print(len(addresses), "total records")
 
-addresses.loc[:,"zip_code"] = addresses.zip_code.str.slice(0, 5)
+addresses.loc[:,"zipcode"] = addresses.zipcode.str.slice(0, 5)
 addresses = addresses.dropna(how="any")
 print(len(addresses), "complete records")
 
-addresses = addresses.drop_duplicates(["address", "zip_code", "year"])
+addresses = addresses.drop_duplicates(["address", "zipcode", "year"])
 print(len(addresses), "distinct records")
 
 addresses.to_csv(out_file, index=False)

@@ -15,7 +15,7 @@ years = years.groupby("record_id").min().reset_index()
 columns = {
     "rf_id": "record_id",
     "ee_address_2": "address",
-    "ee_postcode": "zip_code",
+    "ee_postcode": "zipcode",
     "ee_country": "country"
 }
 
@@ -29,8 +29,8 @@ print(len(addresses), "US records")
 addresses = addresses.dropna(how="any")
 print(len(addresses), "complete records")
 
-addresses.loc[:,"zip_code"] = addresses.zip_code.str.slice(0, 5)
-addresses = addresses.merge(years, how="left", on="record_id").drop_duplicates(["address", "zip_code", "year"])
+addresses.loc[:,"zipcode"] = addresses.zipcode.str.slice(0, 5)
+addresses = addresses.merge(years, how="left", on="record_id").drop_duplicates(["address", "zipcode", "year"])
 print(len(addresses), "distinct records")
 
 addresses.to_csv(out_file, index=False)
