@@ -1,8 +1,8 @@
 import json
 import os
+import source.lookups
 
 env = Environment(ENV=os.environ)
-env["ENV"]["CENSUSCODING_DATA"] = "scratch/package"
 sharepoint = os.path.join(
   os.path.expanduser("~"),
   "Research Improving People's Lives",
@@ -96,15 +96,49 @@ for state, config in states.items():
 
 # Merge and package lookups
 
+## line
+
+env.Command(
+  target=[
+    "scratch/lookups/line/street.json.gz"
+  ],
+  source=[
+    f"scratch/lookups/line/{county}/lookup-street.csv.gz" for county in counties
+  ],
+  action=source.lookups.MergeStreet
+)
+
+env.Command(
+  target=[
+    "scratch/lookups/line/street-num.json.gz"
+  ],
+  source=(
+    ["scratch/lookups/line/street.json.gz"] +
+    [f"scratch/lookups/line/{county}/lookup-street-num.csv.gz" for county in counties]
+  ),
+  action=source.lookups.MergeStreetNum
+)
+
+env.Command(
+  target=[
+    "scratch/package/line/package.log"
+  ],
+  source=[
+    "scratch/lookups/line/street-num.json.gz"
+  ],
+  action=source.lookups.Package
+)
+
+## point
+
 env.Command(
   target=[
     "scratch/lookups/point/street.json.gz"
   ],
-  source=(
-    ["source/merge-lookups-street.py"] +
-    [f"scratch/lookups/point/{state}/lookup-street.csv.gz" for state in states]
-  ),
-  action="python $SOURCES $TARGET"
+  source=[
+    f"scratch/lookups/point/{state}/lookup-street.csv.gz" for state in states
+  ],
+  action=source.lookups.MergeStreet
 )
 
 env.Command(
@@ -112,13 +146,10 @@ env.Command(
     "scratch/lookups/point/street-num.json.gz"
   ],
   source=(
-    [
-      "source/merge-lookups-street-num.py", 
-      "scratch/lookups/point/street.json.gz"
-    ] +
+    ["scratch/lookups/point/street.json.gz"] +
     [f"scratch/lookups/point/{state}/lookup-street-num.csv.gz" for state in states]
   ),
-  action="python $SOURCES $TARGET"
+  action=source.lookups.MergeStreetNum
 )
 
 env.Command(
@@ -126,20 +157,56 @@ env.Command(
     "scratch/package/point/package.log"
   ],
   source=[
-    "source/package-lookups.py",
     "scratch/lookups/point/street-num.json.gz"
   ],
-  action="python $SOURCES $TARGET"
+  action=source.lookups.Package
+)
+
+## all
+
+env.Command(
+  target=[
+    "scratch/lookups/all/street.json.gz"
+  ],
+  source=(
+    [f"scratch/lookups/line/{county}/lookup-street.csv.gz" for county in counties] +
+    [f"scratch/lookups/point/{state}/lookup-street.csv.gz" for state in states]
+  ),
+  action=source.lookups.MergeStreet
+)
+
+env.Command(
+  target=[
+    "scratch/lookups/all/street-num.json.gz"
+  ],
+  source=(
+    ["scratch/lookups/all/street.json.gz"] +
+    [f"scratch/lookups/line/{county}/lookup-street-num.csv.gz" for county in counties] +
+    [f"scratch/lookups/point/{state}/lookup-street-num.csv.gz" for state in states]
+  ),
+  action=source.lookups.MergeStreetNum
+)
+
+env.Command(
+  target=[
+    "scratch/package/all/package.log"
+  ],
+  source=[
+    "scratch/lookups/all/street-num.json.gz"
+  ],
+  action=source.lookups.Package
 )
 
 # Analysis data
 
+## Extract addresses
+
 env.Command(
   target=[
-    "scratch/analysis/npi-addresses.csv"
+    "scratch/analysis/cms-npi.csv"
   ],
   source=[
-    "source/extract-npi-addresses.py",
+    "source/extract-cms-npi.py",
     os.path.join(
       sharepoint,
       "Data/Public/CMS-NPI/20211214/npidata_pfile_20050523-20211212.csv.gz"
@@ -154,10 +221,39 @@ env.Command(
 
 env.Command(
   target=[
-    "scratch/analysis/uspto-pat-addresses.csv"
+    "scratch/analysis/epa-frs.csv"
   ],
   source=[
-    "source/extract-uspto-pat-addresses.py",
+    "source/extract-epa-frs.py",
+    os.path.join(
+      sharepoint,
+      "Data/Public/EPA/Facility Registry System/20220711/NATIONAL_SINGLE.CSV.gz"
+    )
+  ],
+  action="python $SOURCES $TARGET >${TARGET}.log"
+)
+
+env.Command(
+  target=[
+    "scratch/analysis/hud-phb.csv"
+  ],
+  source=[
+    "source/extract-hud-phb.py",
+    os.path.join(
+      sharepoint,
+      "Data/Public/HUD/Public Housing Buildings/20220711/Public_Housing_Buildings.csv"
+    )
+  ],
+  action="python $SOURCES $TARGET >${TARGET}.log"
+)
+
+
+env.Command(
+  target=[
+    "scratch/analysis/uspto-pat.csv"
+  ],
+  source=[
+    "source/extract-uspto-pat.py",
     os.path.join(
       sharepoint,
       "Data/Public/USPTO/Patent Assignment Dataset/2020/assignment.csv.gz"
@@ -172,10 +268,10 @@ env.Command(
 
 env.Command(
   target=[
-    "scratch/analysis/uspto-tm-addresses.csv"
+    "scratch/analysis/uspto-tm.csv"
   ],
   source=[
-    "source/extract-uspto-tm-addresses.py",
+    "source/extract-uspto-tm.py",
     os.path.join(
       sharepoint,
       "Data/Public/USPTO/Trademark Assignment Dataset/2020/tm_assignment.csv.gz"
@@ -188,16 +284,26 @@ env.Command(
   action="python $SOURCES $TARGET >${TARGET}.log"
 )
 
-for test in ["npi", "uspto-pat", "uspto-tm"]:
-  env.Command(
-    target=[
-      f"scratch/analysis/{test}-addresses-censuscoded.csv"
-    ],
-    source=[
-      f"scratch/analysis/{test}-addresses.csv",
-      "scratch/package.log"
-    ],
-    action="censuscoding --preserve -i $SOURCE -o $TARGET >${TARGET}.log"
-  )
+tests = {
+  "cms-npi": "year",
+  "epa-frs": "year blkgrp_true",
+  "hud-phb": "year blkgrp_true",
+  "uspto-pat": "year",
+  "uspto-tm": "year"
+}
+
+for test in tests:
+  for lookup in ["line", "point", "all"]:
+    cols = tests[test]
+    env.Command(
+      target=[
+        f"scratch/analysis/censuscoded/{lookup}/{test}.csv"
+      ],
+      source=[
+        f"scratch/analysis/{test}.csv",
+        f"scratch/package/{lookup}/package.log"
+      ],
+      action=f"python -m censuscoding --data scratch/package/{lookup}/package --preserve-rows --preserve-cols {cols} -i $SOURCE -o $TARGET >${{TARGET}}.log"
+    )
 
 # vim: syntax=python expandtab sw=2 ts=2
