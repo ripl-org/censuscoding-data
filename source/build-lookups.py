@@ -6,7 +6,7 @@ blocks_file, geo_level, name_file, num_file = sys.argv[1:]
 blocks = pd.read_csv(blocks_file, dtype=str)
 n = len(blocks)
 
-blocks.loc[:,"Zip"] = blocks.Zip.str.extract("(\d+)", expand=False)
+blocks.loc[:,"Zip"] = blocks.Zip.str.extract(r"(\d+)", expand=False)
 blocks = blocks[blocks.Zip.notnull() & (blocks.Zip.str.len() == 5)]
 blocks["Zip"] = blocks.Zip.astype(int)
 print("dropped", n - len(blocks), "records with missing or invalid 5-digit zip")

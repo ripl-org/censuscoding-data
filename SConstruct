@@ -11,8 +11,25 @@ sharepoint = os.path.join(
 tiger = os.path.join(sharepoint, "Data", "Public", "TIGER", "2020")
 counties = [x.strip() for x in open("counties.txt")]
 states = json.load(open("states.json"))
+state_fips = json.load(open("state-fips.json"))
 
 #env.CacheDir(os.path.join(sharepoint, "Data/Public/Censuscoding/scons-cache"))
+
+# National blkgrp file
+
+env.Command(
+  target=[
+    "scratch/lookups/national-blkgrp.dat",
+    "scratch/lookups/national-blkgrp.idx"
+  ],
+  source=[
+    "source/build-national-blkgrp.py"
+  ]+[
+    os.path.join(sharepoint, f"Data/Public/TIGER/2020/tl_2020_{config['fips']}_bg.shp")
+    for config in state_fips.values()
+  ],
+  action="python $SOURCES $TARGET >${TARGET}.log"
+)
 
 # Line-based lookups from TIGER
 
@@ -228,7 +245,8 @@ env.Command(
     os.path.join(
       sharepoint,
       "Data/Public/EPA/Facility Registry System/20220711/NATIONAL_SINGLE.CSV.gz"
-    )
+    ),
+    "scratch/lookups/national-blkgrp.dat"
   ],
   action="python $SOURCES $TARGET >${TARGET}.log"
 )
@@ -242,7 +260,8 @@ env.Command(
     os.path.join(
       sharepoint,
       "Data/Public/HUD/Public Housing Buildings/20220711/Public_Housing_Buildings.csv"
-    )
+    ),
+    "scratch/lookups/national-blkgrp.dat"
   ],
   action="python $SOURCES $TARGET >${TARGET}.log"
 )
