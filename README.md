@@ -15,3 +15,8 @@ Install required packages with:
 ## Build
 
 Run `scons` in the root directory.
+
+
+## License
+
+Data provided by permission of [King County] (https://www5.kingcounty.gov/sdc/addl_doc/KCGISCenterTermsAndConditions.pdf).

@@ -6,25 +6,24 @@ from address import transliterate
 
 sites_file, out_file = sys.argv[1:]
 
-columns = ["Address Number", "Street Name", "ZIP Code", "Longitude", "Latitude"]
+columns = ["X", "Y", "ADDRNMBR", "ADDRPDIR", "ADDRNAME", "ADDRZIP"]
 
 sites = (
     pd.read_csv(
         sites_file,
         usecols=columns,
-        dtype=str
+        dtype=str,
+        na_values=" "
     ).rename(
         columns={
-            "Longitude": "X",
-            "Latitude": "Y",
-            "ZIP Code": "Zip",
-            "Address Number": "StreetNum",
-            "Street Name": "StreetName"
+            "ADDRZIP": "Zip",
+            "ADDRNMBR": "StreetNum"
         }
     )
 )
 
-sites.loc[:, "StreetName"] = sites.StreetName.str.lstrip("0")
+# Street prefix
+sites.loc[:, "StreetName"] = (sites.ADDRPDIR.fillna("") + " " + sites.ADDRNAME.str.lstrip("0")).str.lstrip(" ")
 
 # Retain sites with known lat/lon, zip and house number
 sites = sites[

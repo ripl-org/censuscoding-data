@@ -1,12 +1,15 @@
 import csv
 import gzip
 import pandas as pd
+import re
 import sys
 from address import transliterate
 
 sites_file, out_file = sys.argv[1:]
 
-columns = ["Address Number", "Street Name", "ZIP Code", "Longitude", "Latitude"]
+re_num = re.compile(r"^([1-9][0-9]*)")
+
+columns = ["ADDR_HN", "ADDR_PD", "ADDR_SN", "ZIP5", "LAT", "LON"]
 
 sites = (
     pd.read_csv(
@@ -15,16 +18,16 @@ sites = (
         dtype=str
     ).rename(
         columns={
-            "Longitude": "X",
-            "Latitude": "Y",
-            "ZIP Code": "Zip",
-            "Address Number": "StreetNum",
-            "Street Name": "StreetName"
+            "LON": "X",
+            "LAT": "Y",
+            "ZIP5": "Zip",
+            "ADDR_HN": "StreetNum"
         }
     )
 )
 
-sites.loc[:, "StreetName"] = sites.StreetName.str.lstrip("0")
+# Street prefix
+sites.loc[:, "StreetName"] = (sites.ADDR_PD.fillna("") + " " + sites.ADDR_SN).str.lstrip(" ")
 
 # Retain sites with known lat/lon, zip and house number
 sites = sites[
@@ -40,5 +43,7 @@ with gzip.open(out_file, "wt", encoding="ascii") as f:
     writer = csv.writer(f)
     writer.writerow(("X", "Y", "StreetNum", "StreetName", "Zip"))
     for record in sites.itertuples():
+        StreetNum = re_num.match(record.StreetNum) # Remove letters in house number
         StreetName = transliterate(record.StreetName)
-        writer.writerow((record.X, record.Y, record.StreetNum, StreetName, record.Zip))
+        if StreetNum is not None:
+            writer.writerow((record.X, record.Y, StreetNum.group(1), StreetName, record.Zip))

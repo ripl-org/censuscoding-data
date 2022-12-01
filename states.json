@@ -35,10 +35,28 @@
             "path": "Data/Public/TIGER/2020/tl_2020_06_bg.shp"
         }
     },
+    "CA/SanDiego": {
+        "address": {
+            "path": "Data/Public/Censuscoding/CA/SanDiego/20221128/Address_APN.csv.gz",
+            "method": "ca-sd"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_06_bg.shp"
+        }
+    },
     "CA/SanFrancisco": {
         "address": {
             "path": "Data/Public/Censuscoding/CA/SanFrancisco/20220203/Addresses_-_Enterprise_Addressing_System.csv.gz",
             "method": "ca-sf"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_06_bg.shp"
+        }
+    },
+    "CA/SantaClara": {
+        "address": {
+            "path": "Data/Public/Censuscoding/CA/SantaClara/20221128/AddressPoint_data.csv.gz",
+            "method": "ca-sc"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_06_bg.shp"
@@ -116,6 +134,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_19_bg.shp"
         }
     },
+    "IL/Cook": {
+        "address": {
+            "path": "Data/Public/Censuscoding/IL/Cook/20221129/Assessor__Archived_05-11-2022__-_Property_Locations.csv.gz",
+            "method": "il-cook"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_17_bg.shp"
+        }
+    },
     "IN": {
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20220708/NAD_r10_reduced/IN.txt.gz",
@@ -132,6 +159,15 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_20_bg.shp"
+        }
+    },
+    "KY/Jefferson": {
+        "address": {
+            "path": "Data/Public/Censuscoding/KY/Jefferson/20221130/Jefferson_County_KY_Address_Points.csv.gz",
+            "method": "ky-jefferson"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_21_bg.shp"
         }
     },
     "LA": {
@@ -168,6 +204,15 @@
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_23_bg.shp"
+        }
+    },
+    "MI/Detroit": {
+        "address": {
+            "path": "Data/Public/Censuscoding/MI/Detroit/20221130/Base_Units_Address_Points.csv.gz",
+            "method": "mi-detroit"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_26_bg.shp"
         }
     },
     "MN": {
@@ -260,6 +305,15 @@
             "path": "Data/Public/TIGER/2020/tl_2020_41_bg.shp"
         }
     },
+    "PA/Philadelphia": {
+        "address": {
+            "path": "Data/Public/Censuscoding/PA/Philadelphia/20221130/opa_properties_public.csv.gz",
+            "method": "pa-philadelphia"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_42_bg.shp"
+        }
+    },
     "RI": {
         "address": {
             "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
@@ -327,6 +381,15 @@
         "address": {
             "path": "Data/Public/USDOT/National Address Database/20220708/NAD_r10_reduced/WA.txt.gz",
             "method": "usdot-nad"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_53_bg.shp"
+        }
+    },
+    "WA/King": {
+        "address": {
+            "path": "Data/Public/Censuscoding/WA/King/20221129/Addresses_in_King_County___address_point.csv.gz",
+            "method": "wa-king"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_53_bg.shp"
