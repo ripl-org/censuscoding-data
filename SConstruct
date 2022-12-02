@@ -325,4 +325,33 @@ for test in tests:
       action=f"python -m censuscoding --data scratch/package/{lookup}/package --preserve-rows --preserve-cols {cols} -i $SOURCE -o $TARGET >${{TARGET}}.log"
     )
 
+env.Command(
+  target=[
+    f"scratch/analysis/coverage.csv"
+  ],
+  source=[
+    "source/coverage.py",
+    "data/zip3.csv"
+  ] + [
+    f"scratch/analysis/censuscoded/{lookup}/{test}.csv"
+    for lookup in ["line", "point", "all"]
+    for test in tests
+  ],
+  action="python $SOURCES $TARGET >${TARGET}.log"
+)
+
+env.Command(
+  target=[
+    f"scratch/analysis/accuracy.csv"
+  ],
+  source=[
+    "source/accuracy.py"
+  ] + [
+    f"scratch/analysis/censuscoded/{lookup}/{test}.csv"
+    for lookup in ["line", "point", "all"]
+    for test in ["epa-frs", "hud-phb"]
+  ],
+  action="python $SOURCES $TARGET >${TARGET}.log"
+)
+
 # vim: syntax=python expandtab sw=2 ts=2
