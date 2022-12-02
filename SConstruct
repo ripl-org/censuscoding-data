@@ -266,7 +266,6 @@ env.Command(
   action="python $SOURCES $TARGET >${TARGET}.log"
 )
 
-
 env.Command(
   target=[
     "scratch/analysis/uspto-pat.csv"
@@ -303,6 +302,8 @@ env.Command(
   action="python $SOURCES $TARGET >${TARGET}.log"
 )
 
+# Censuscode test data with line, point, and all lookups
+
 tests = {
   "cms-npi": "year",
   "epa-frs": "year blkgrp_true",
@@ -325,6 +326,8 @@ for test in tests:
       action=f"python -m censuscoding --data scratch/package/{lookup}/package --preserve-rows --preserve-cols {cols} -i $SOURCE -o $TARGET >${{TARGET}}.log"
     )
 
+### Coverage validation ###
+
 env.Command(
   target=[
     f"scratch/analysis/coverage.csv"
@@ -342,6 +345,19 @@ env.Command(
 
 env.Command(
   target=[
+    f"scratch/analysis/coverage.pdf"
+  ],
+  source=[
+    "source/coverage-plot.R",
+    "scratch/analysis/coverage.csv"
+  ],
+  action="Rscript $SOURCES $TARGET >${TARGET}.log"
+)
+
+### Accuracy validation ###
+
+env.Command(
+  target=[
     f"scratch/analysis/accuracy.csv"
   ],
   source=[
@@ -352,6 +368,17 @@ env.Command(
     for test in ["epa-frs", "hud-phb"]
   ],
   action="python $SOURCES $TARGET >${TARGET}.log"
+)
+
+env.Command(
+  target=[
+    f"scratch/analysis/accuracy.pdf"
+  ],
+  source=[
+    "source/accuracy-plot.R",
+    "scratch/analysis/accuracy.csv"
+  ],
+  action="Rscript $SOURCES $TARGET >${TARGET}.log"
 )
 
 # vim: syntax=python expandtab sw=2 ts=2
