@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import sys
 
 assignment_file, assignee_file, out_file = sys.argv[1:]
@@ -14,7 +15,8 @@ years = years.groupby("record_id").min().reset_index()
 
 columns = {
     "rf_id": "record_id",
-    "ee_address_2": "address",
+    "ee_address_1": "address1",
+    "ee_address_2": "address2",
     "ee_postcode": "zipcode",
     "ee_country": "country"
 }
@@ -25,6 +27,18 @@ print(len(addresses), "total records")
 addresses = addresses[addresses.country.isnull()] # US addresses have empty country
 del addresses["country"]
 print(len(addresses), "US records")
+
+# Remove corporation titles from address fields
+addresses.loc[addresses.address1.notnull() & addresses.address1.str.startswith("A "), "address1"] = np.nan
+addresses.loc[addresses.address2.notnull() & addresses.address2.str.startswith("A "), "address2"] = np.nan
+
+# Fill missing address1 with address2
+missing1 = addresses.address1.isnull()
+addresses.loc[missing1, "address1"] = addresses.loc[missing1, "address2"]
+print(sum(missing1), "missing address1")
+
+addresses.rename(columns={"address1": "address"}, inplace=True)
+del addresses["address2"]
 
 addresses = addresses.dropna(how="any")
 print(len(addresses), "complete records")

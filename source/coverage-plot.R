@@ -10,7 +10,8 @@ tests <- list(
   "cms-npi" = "Healthcare Providers (CMS NPI Directory)",
   "epa-frs" = "EPA-Registered Facilities (EPA FRS)",
   "hud-phb" = "Public Housing Buildings (HUD)",
-  "uspto-pat" = "US Patent Assignees (USPTO)"
+  "uspto-pat" = "US Patent Assignees (USPTO)",
+  "uspto-tm" = "US Trademark Assignees (USPTO)"
 )
 
 lookups <- list(
@@ -27,8 +28,7 @@ data <- read_csv(data_file) %>%
     decade = paste0(as.integer(year / 10), "0")
   ) %>%
   filter(
-    decade %in% decades,
-    test %in% names(tests)
+    decade %in% decades
   ) %>%
   group_by(decade, test, lookup) %>%
   summarize(
