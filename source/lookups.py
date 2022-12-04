@@ -17,7 +17,7 @@ def MergeStreet(target, source, env):
         with gzip.open(street_file, "rt", encoding="ascii") as f:
             reader = csv.DictReader(f)
             for record in reader:
-                lookup[int(record["zip"])][record["street"]] = record["blkgrp"]
+                lookup[record["zip"].zfill(5)][record["street"]] = record["blkgrp"]
     with gzip.open(str(target[0]), "wt", encoding="ascii") as f:
         json.dump(lookup, f)
 
@@ -32,19 +32,19 @@ def MergeStreetNum(target, source, env):
         with gzip.open(num_file, "rt", encoding="ascii") as f:
             reader = csv.DictReader(f)
             for record in reader:
-                z = int(record["zip"])
+                zip5 = record["zip"].zfill(5)
                 n = int(record["street_num"])
 
                 # Add this zipcode to the lookup if there was no street entry.
-                if z not in lookup:
-                    lookup[z] = {}
+                if zip5 not in lookup:
+                    lookup[zip5] = {}
 
                 # Update an existing record for this street
-                if record["street"] in lookup[z]:
+                if record["street"] in lookup[zip5]:
                     # Make sure this street is a numbered street
-                    assert isinstance(lookup[z][record["street"]], list), f"{record['zip']}:{record['street']}"
-                    nums = lookup[z][record["street"]][0]
-                    blkgrps = lookup[z][record["street"]][1]
+                    assert isinstance(lookup[zip5][record["street"]], list), f"{record['zip']}:{record['street']}"
+                    nums = lookup[zip5][record["street"]][0]
+                    blkgrps = lookup[zip5][record["street"]][1]
                     # Binary search to locate index for street_num.
                     i = bisect_left(nums, n)
                     # Merge street_num with neighboring street_num if they share
@@ -58,7 +58,7 @@ def MergeStreetNum(target, source, env):
                         blkgrps.insert(i, record["blkgrp"])
                 # Or create a new record for this street
                 else:
-                    lookup[z][record["street"]] = [[n], [record["blkgrp"]]]
+                    lookup[zip5][record["street"]] = [[n], [record["blkgrp"]]]
 
     with gzip.open(str(target[0]), "wt", encoding="ascii") as f:
         json.dump(lookup, f)
@@ -77,12 +77,11 @@ def Package(target, source, env):
     # Pickle at the 2-digit zipcode level
 
     packaged = defaultdict(dict)
-    for z in lookup:
-        zip5 = z.zfill(5)
+    for zip5 in lookup:
         if zip5 != "00000":
             zz = zip5[:2]
             zzz = zip5[2:]
-            packaged[zz][zzz] = lookup[z]
+            packaged[zz][zzz] = lookup[zip5]
 
     for zz in packaged:
         path = os.path.join(out_dir, zz)

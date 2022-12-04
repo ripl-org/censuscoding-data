@@ -260,10 +260,19 @@
             "path": "Data/Public/TIGER/2020/tl_2020_38_bg.shp"
         }
     },
+    "NE": {
+        "address": {
+            "path": "Data/Public/Censuscoding/NE/20220203/Address_Points.csv.gz",
+            "method": "ne"
+        },
+        "blkgrp": {
+            "path": "Data/Public/TIGER/2020/tl_2020_31_bg.shp"
+        }
+    },
     "NJ": {
         "address": {
-            "path": "Data/Public/Censuscoding/NJ/20211221/us_nj_statewide-addresses-state.geojson.gz",
-            "method": "openaddresses"
+            "path": "Data/Public/USDOT/National Address Database/20220708/NAD_r10_reduced/NJ.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_34_bg.shp"
@@ -296,15 +305,6 @@
             "path": "Data/Public/TIGER/2020/tl_2020_39_bg.shp"
         }
     },
-    "OR": {
-        "address": {
-            "path": "Data/Public/USDOT/National Address Database/20211221/NAD_r8_reduced/OR.txt.gz",
-            "method": "usdot-nad"
-        },
-        "blkgrp": {
-            "path": "Data/Public/TIGER/2020/tl_2020_41_bg.shp"
-        }
-    },
     "PA/Philadelphia": {
         "address": {
             "path": "Data/Public/Censuscoding/PA/Philadelphia/20221130/opa_properties_public.csv.gz",
@@ -316,8 +316,8 @@
     },
     "RI": {
         "address": {
-            "path": "Data/Public/Censuscoding/RI/20211218/E-911_Sites.csv.gz",
-            "method": "ri-e911"
+            "path": "Data/Public/USDOT/National Address Database/20220708/NAD_r10_reduced/RI.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_44_bg.shp"
@@ -370,8 +370,8 @@
     },
     "VT": {
         "address": {
-            "path": "Data/Public/Censuscoding/VT/20211222/VT_Data_-_E911_Site_Locations_(address_points).csv.gz",
-            "method": "vt-e911"
+            "path": "Data/Public/USDOT/National Address Database/20220708/NAD_r10_reduced/VT.txt.gz",
+            "method": "usdot-nad"
         },
         "blkgrp": {
             "path": "Data/Public/TIGER/2020/tl_2020_50_bg.shp"
