@@ -1,21 +1,41 @@
 import json
 import os
+import pandas as pd
+import source.points
 import source.lookups
 
 env = Environment(ENV=os.environ)
-sharepoint = os.path.join(
-  os.path.expanduser("~"),
-  "Research Improving People's Lives",
-  "RIPL All Staff - Documents"
-)
-tiger = os.path.join(sharepoint, "Data", "Public", "TIGER", "2020")
+
+DOI = "10.5281/zenodo.7382661" # DOI of the replication files at Zenodo
+
+# Load zip/state/county parameters data
+
+zip3s = pd.read_csv("data/zip3.csv", dtype=str)
+zip2s = sorted(zip3s.zip3.str[:2].unique().tolist())
+states = json.load(open("data/states.json"))
 counties = [x.strip() for x in open("counties.txt")]
-states = json.load(open("states.json"))
-state_fips = json.load(open("state-fips.json"))
 
-#env.CacheDir(os.path.join(sharepoint, "Data/Public/Censuscoding/scons-cache"))
+# Get input files from Zenodo
+# NOTE: this will download 20GB of data into the input/ subdirectory!
 
-# National blkgrp file
+env.Command(
+    target=[
+        "input/AddressPoints.zip",
+        "input/LICENSE.md",
+        "input/nlx_company_names.txt",
+        "input/NAD_r10.txt.gz",
+        "input/NAD_r10.txt.xml",
+        "input/SOURCES.md",
+        "input/TIGER.zip",
+        "input/Validation.zip"
+    ],
+    source=[
+        Value(DOI)
+    ],
+    action="zenodo_get -o input/ -d $SOURCE"
+)
+
+# National Block Group index
 
 env.Command(
   target=[
@@ -23,198 +43,111 @@ env.Command(
     "scratch/lookups/national-blkgrp.idx"
   ],
   source=[
-    "source/build-national-blkgrp.py"
+    "input/TIGER.zip"
   ]+[
-    os.path.join(sharepoint, f"Data/Public/TIGER/2020/tl_2020_{config['fips']}_bg.shp")
-    for config in state_fips.values()
+    Value(f"2020/BLKGRP/tl_2020_{state['fips']}_bg")
+    for state in states.values()
   ],
-  action="python $SOURCES $TARGET >${TARGET}.log"
+  action=source.lookups.NationalBlockGroups
 )
+
+# Point-based lookups from National Address Database
+
+env.Command(
+  target=[
+    f"scratch/points/NAD/{zip2}.csv.gz"
+    for zip2 in zip2s
+  ],
+  source=[
+    "input/NAD_r10.txt.gz"
+  ],
+  action=source.points.NationalAddressDatabase
+)
+
+# Point-based lookups from state/local governments
+
+env.Command(
+  target=[
+    f"scratch/points/AddressPoints/{zip2}.csv.gz"
+    for zip2 in zip2s
+  ],
+  source=[
+    "data/AddressPoints.json",
+    "input/AddressPoints.zip"
+  ],
+  action=source.points.AddressPoints
+)
+
+for zip2 in zip2s:
+  env.Command(
+    target=[
+      f"scratch/lookups/point/{zip2}.csv.gz"
+    ],
+    source=[
+      f"scratch/lookups/national-blkgrp.dat",
+      f"scratch/points/NAD/{zip2}.csv.gz",
+      f"scratch/points/AddressPoints/{zip2}.csv.gz"
+    ],
+    action=source.lookups.Point
+  )
 
 # Line-based lookups from TIGER
 
-for county in counties:
-
-  env.Depends(
-    env.Command(
-      target=[
-        f"scratch/lookups/line/{county}/address-blkgrp.csv.gz",
-        f"scratch/lookups/line/{county}/address-blkgrp.log"
-      ],
-      source=[
-        "source/clean-tiger.py",
-        os.path.join(tiger, "ADDRFEAT", f"tl_2020_{county}_addrfeat.zip"),
-        os.path.join(tiger, "FACES", f"tl_2020_{county}_faces.zip")
-      ],
-      action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
-    ),
-    ["source/address.py"]
-  )
-
-  env.Command(
-    target=[
-      f"scratch/lookups/line/{county}/lookup-street.csv.gz",
-      f"scratch/lookups/line/{county}/lookup-street-num.csv.gz",
-      f"scratch/lookups/line/{county}/lookup-street.log"
-    ],
-    source=[
-      "source/build-lookups.py",
-      f"scratch/lookups/line/{county}/address-blkgrp.csv.gz",
-      Value("BlockGroup")
-    ],
-    action="python $SOURCES ${TARGETS[0]} ${TARGETS[1]} >${TARGETS[2]}"
-  )
-
-# Point-based lookups from NAD and states/counties/cities
-
-for state, config in states.items():
-
-  env.Depends(
-    env.Command(
-      target=[
-        f"scratch/lookups/point/{state}/address.csv.gz",
-        f"scratch/lookups/point/{state}/address.log"
-      ],
-      source=[
-        "source/clean-{}.py".format(config["address"]["method"]),
-        os.path.join(sharepoint, config["address"]["path"])
-      ],
-      action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
-    ),
-    ["source/address.py"]
-  )
-
-  env.Command(
-    target=[
-      f"scratch/lookups/point/{state}/address-blkgrp.csv.gz",
-      f"scratch/lookups/point/{state}/address-blkgrp.log"
-    ],
-    source=[
-      "source/locate-blkgrp.py",
-      os.path.join(sharepoint, config["blkgrp"]["path"]),
-      f"scratch/lookups/point/{state}/address.csv.gz"
-    ],
-    action="python $SOURCES ${TARGETS[0]} >${TARGETS[1]}"
-  )
-
-  env.Command(
-    target=[
-      f"scratch/lookups/point/{state}/lookup-street.csv.gz",
-      f"scratch/lookups/point/{state}/lookup-street-num.csv.gz",
-      f"scratch/lookups/point/{state}/lookup-street.log"
-    ],
-    source=[
-      "source/build-lookups.py",
-      f"scratch/lookups/point/{state}/address-blkgrp.csv.gz",
-      Value("BlockGroup")
-    ],
-    action="python $SOURCES ${TARGETS[0]} ${TARGETS[1]} >${TARGETS[2]}"
-  )
-
-# Merge and package lookups
-
-## line
-
 env.Command(
   target=[
-    "scratch/lookups/line/street.json.gz"
+    f"scratch/lookups/line/{zip2}.csv.gz"
+    for zip2 in zip2s
   ],
   source=[
-    f"scratch/lookups/line/{county}/lookup-street.csv.gz" for county in counties
+    "input/TIGER.zip",
+    "data/counties.txt"
   ],
-  action=source.lookups.MergeStreet
+  action=source.lookups.Line
 )
 
-env.Command(
-  target=[
-    "scratch/lookups/line/street-num.json.gz"
-  ],
-  source=(
-    ["scratch/lookups/line/street.json.gz"] +
-    [f"scratch/lookups/line/{county}/lookup-street-num.csv.gz" for county in counties]
-  ),
-  action=source.lookups.MergeStreetNum
-)
-
-env.Command(
-  target=[
-    "scratch/package/line/package.log"
-  ],
-  source=[
-    "scratch/lookups/line/street-num.json.gz"
-  ],
-  action=source.lookups.Package
-)
+# Package lookups
 
 ## point
 
-env.Command(
-  target=[
-    "scratch/lookups/point/street.json.gz"
-  ],
-  source=[
-    f"scratch/lookups/point/{state}/lookup-street.csv.gz" for state in states
-  ],
-  action=source.lookups.MergeStreet
-)
+for zip2 in zip2s:
+  env.Command(
+    target=[
+      f"scratch/package/point/{zip2}"
+    ],
+    source=[
+      f"scratch/lookups/point/{zip2}.csv.gz"
+    ],
+    action=source.lookups.Package
+  )
 
-env.Command(
-  target=[
-    "scratch/lookups/point/street-num.json.gz"
-  ],
-  source=(
-    ["scratch/lookups/point/street.json.gz"] +
-    [f"scratch/lookups/point/{state}/lookup-street-num.csv.gz" for state in states]
-  ),
-  action=source.lookups.MergeStreetNum
-)
+## line
 
-env.Command(
-  target=[
-    "scratch/package/point/package.log"
-  ],
-  source=[
-    "scratch/lookups/point/street-num.json.gz"
-  ],
-  action=source.lookups.Package
-)
+for zip2 in zip2s:
+  env.Command(
+    target=[
+      f"scratch/package/line/{zip2}"
+    ],
+    source=[
+      f"scratch/lookups/line/{zip2}.csv.gz"
+    ],
+    action=source.lookups.Package
+  )
 
 ## all
 
-env.Command(
-  target=[
-    "scratch/lookups/all/street.json.gz"
-  ],
-  source=(
-    [f"scratch/lookups/line/{county}/lookup-street.csv.gz" for county in counties] +
-    [f"scratch/lookups/point/{state}/lookup-street.csv.gz" for state in states]
-  ),
-  action=source.lookups.MergeStreet
-)
+for zip2 in zip2s:
+  env.Command(
+    target=[
+      f"scratch/package/all/{zip2}"
+    ],
+    source=[
+      f"scratch/lookups/point/{zip2}.csv.gz",
+      f"scratch/lookups/line/{zip2}.csv.gz"
+    ],
+    action=source.lookups.Package
+  )
 
-env.Command(
-  target=[
-    "scratch/lookups/all/street-num.json.gz"
-  ],
-  source=(
-    ["scratch/lookups/all/street.json.gz"] +
-    [f"scratch/lookups/line/{county}/lookup-street-num.csv.gz" for county in counties] +
-    [f"scratch/lookups/point/{state}/lookup-street-num.csv.gz" for state in states]
-  ),
-  action=source.lookups.MergeStreetNum
-)
-
-env.Command(
-  target=[
-    "scratch/package/all/package.log"
-  ],
-  source=[
-    "scratch/lookups/all/street-num.json.gz"
-  ],
-  action=source.lookups.Package
-)
-
-# Analysis data
+# Validation
 
 ## Extract addresses
 

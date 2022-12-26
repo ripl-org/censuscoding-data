@@ -1,0 +1,123 @@
+[
+	{
+		"name": "CA/SanDiego",
+		"date": "20221128",
+		"filename": "Address_APN.csv.gz",
+		"config": {
+			"StreetNum": "ADDRNMBR",
+			"StreetDir": "ADDRPDIR",
+			"StreetName": "ADDRNAME",
+			"Zip": "ADDRZIP"
+		}
+	},
+	{
+		"name": "CA/SanFrancisco",
+		"date": "20220203",
+		"filename": "Addresses_-_Enterprise_Addressing_System.csv.gz",
+		"config": {
+			"X": "Longitude",
+			"Y": "Latitude",
+			"StreetNum": "Address Number",
+			"StreetName": "Street Name",
+			"Zip": "ZIP Code"
+		}
+	},
+	{
+		"name": "CA/SantaClara",
+		"date": "20221128",
+		"filename": "AddressPoint_data.csv.gz",
+		"config": {
+			"Point": "the_geom",
+			"StreetNum": "HOUSENUMTEXT",
+			"StreetDir": "STREETPREFIX",
+			"StreetName": "STREETNAME",
+			"Zip": "ZIPCODE"
+		}
+	},
+	{
+		"name": "FL",
+		"date": "20220104",
+		"filename": "us_fl_statewide-addresses-state.geojson.gz"
+	},
+	{
+		"name": "HI",
+		"date": "20211218",
+		"filename": "us_hi_hawaii-addresses-county.geojson.gz"
+	},
+	{
+		"name": "HI",
+		"date": "20211218",
+		"filename": "us_hi_honolulu-addresses-county.geojson.gz"
+	},
+	{
+		"name": "IL/Cook",
+		"date": "20221129",
+		"filename": "Assessor__Archived_05-11-2022__-_Property_Locations.csv.gz",
+		"config": {
+			"X:": "longitude",
+			"Y": "latitude",
+			"Address": "property_address",
+			"Zip": "property_zip"
+		}
+	},
+	{
+		"name": "KY/Jefferson",
+		"date": "20221130",
+		"filename": "Jefferson_County_KY_Address_Points.csv.gz",
+		"config": {
+			"StreetNum": "HOUSENO",
+			"StreetDir": "DIR",
+			"StreetName": "STRNAME",
+			"Zip": "ZIPCODE"
+		}
+	},
+	{
+		"name": "MI/Detroit",
+		"date": "20221130",
+		"filename": "Base_Units_Address_Points.csv.gz",
+		"config": {
+			"StreetNum": "street_number",
+			"StreetDir": "street_prefix",
+			"StreetName": "street_name",
+			"Zip": "zip_code"
+		}
+	},
+	{
+		"name": "NE",
+		"date": "20220203",
+		"filename": "Address_Points.csv.gz",
+		"config": {
+			"StreetNum": "ADD_NUM",
+			"StreetDir": "PRE_DIR",
+			"StreetName": "ST_NAME",
+			"ZIp": "ZIP"
+		}
+	},
+	{
+		"name": "PA/Philadelphia",
+		"date": "20221130",
+		"filename": "opa_properties_public.csv.gz",
+		"config": {
+			"X": "lng",
+			"Y": "lat",
+			"StreetNum": "house_number",
+			"StreetDir": "street_direction",
+			"StreetName": "street_name",
+			"Zip": "zip_code" 
+
+		}
+	},
+	{
+		"name": "WA/King",
+		"date": "20221129",
+		"filename": "Addresses_in_King_County___address_point.csv.gz",
+		"config": {
+			"X": "LAT",
+			"Y": "LON",
+			"StreetNum": "ADDR_HN",
+			"StreetDir": "ADDR_PD",
+			"StreetName": "ADDR_SN",
+			"Zip": "ZIP5"
+		}
+	}
+]

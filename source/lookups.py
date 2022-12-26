@@ -7,6 +7,36 @@ import sys
 from bisect import bisect_left
 from collections import defaultdict
 
+import rtree
+import shapefile
+from shapely.geometry import shape
+from zipfile import ZipFile
+
+
+def NationalBlockGroups(target, source, env):
+    """
+    """
+    outprefix = target[0].rpartition(".")[0]
+    # Load and index blockgroup shapes
+    shape_index = rtree.index.Index(outprefix)
+    with ZipFile(source[0]) as z:
+        n = 0
+        for path in source[1:]:
+            
+            blkgrp = shapefile.Reader(in_file)
+            for i in range(len(blkgrp)):
+                s = shape(blkgrp.shape(i))
+                shape_index.insert(
+                    n,
+                    s.bounds,
+                    {
+                        "geoid": blkgrp.record(i)["GEOID"],
+                        "shape": s
+                    }
+                )
+                n += 1
+    shape_index.close()
+
 
 def MergeStreet(target, source, env):
     """
