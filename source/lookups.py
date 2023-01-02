@@ -19,6 +19,16 @@ shapefile_exts = [".cpg", ".dbf", ".prj", ".shp", ".shp.ea.iso.xml", ".shp.iso.x
 header = ["StreetNum", "StreetName", "Zip", "BlockGroup"]
 
 
+def _locate(shape_index, x, y):
+    """
+    Use the prebuilt shape `index` to locate a blockgroup ID.
+    """
+    p = Point(float(x), float(y))
+    for match in shape_index.intersection(p.bounds, "raw"):
+        if p.intersects(match["shape"]):
+            return match["geoid"]
+
+
 def NationalBlockGroups(target, source, env):
     """
     Combine all state blockgroup faces into a single national index.
@@ -51,6 +61,26 @@ def NationalBlockGroups(target, source, env):
                 n += 1
             temp_dir.cleanup()
     shape_index.close()
+
+
+def Point(target, source, env):
+    """
+    Locate points in the national blockgroup index.
+    source[0]: national-blkgrp.dat
+    source[1]: NAD points
+    source[2]: AddressPoint points
+    """
+    shape_index = rtree.index.Index(source[0].rpartition(".")[0])
+    with gzip.open(target[0], "wt", encoding="ascii") as f_out:
+        writer = csv.writer(f_out)
+        writer.writerow(header)
+        for filename in source[1:]:
+            with gzip.open(filename, "rt", encoding="ascii") as f_in:
+                reader = csv.DictReader(f_in)
+                for row in reader:
+                    BlockGroup = _locate(shape_index, row["X"], row["Y"])
+                    if BlockGroup:
+                        writer.writerow((row["StreetNum"], row["StreetName"], row["Zip"], BlockGroup))
 
 
 def Line(target, source, env):
