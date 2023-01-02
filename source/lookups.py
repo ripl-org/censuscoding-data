@@ -3,27 +3,41 @@ import gzip
 import json
 import os
 import pickle
-import sys
-from bisect import bisect_left
-from collections import defaultdict
-
 import rtree
 import shapefile
+import sys
+import tempfile
+from bisect import bisect_left
 from shapely.geometry import shape
 from zipfile import ZipFile
+
+from source.address import normalize_street
+from source.utils import re_num, open_files, close_files
+
+
+shapefile_exts = [".cpg", ".dbf", ".prj", ".shp", ".shp.ea.iso.xml", ".shp.iso.xml", ".shx"]
+header = ["StreetNum", "StreetName", "Zip", "BlockGroup"]
 
 
 def NationalBlockGroups(target, source, env):
     """
+    Combine all state blockgroup faces into a single national index.
+    source[0]: states.json
+    source[1]: TIGER.zip
     """
-    outprefix = target[0].rpartition(".")[0]
+    out_prefix = target[0].rpartition(".")[0]
+    states = json.load(open(source[0]))
     # Load and index blockgroup shapes
-    shape_index = rtree.index.Index(outprefix)
-    with ZipFile(source[0]) as z:
+    shape_index = rtree.index.Index(out_prefix)
+    with ZipFile(source[1]) as tiger_zip:
         n = 0
-        for path in source[1:]:
-            
-            blkgrp = shapefile.Reader(in_file)
+        for state in states.values():
+            # Extract state blockgroup shapefile to temp dir
+            temp_dir = tempfile.TemporaryDirectory()
+            filename = f"TIGER/BLKGRP/tl_2020_{state['fips']}_bg"
+            for ext in shapefile_exts:
+                tiger_zip.extract(f"{filename}{ext}", path=temp_dir.name)
+            blkgrp = shapefile.Reader(os.path.join(temp_dir.name, filename))
             for i in range(len(blkgrp)):
                 s = shape(blkgrp.shape(i))
                 shape_index.insert(
@@ -35,7 +49,77 @@ def NationalBlockGroups(target, source, env):
                     }
                 )
                 n += 1
+            temp_dir.cleanup()
     shape_index.close()
+
+
+def Line(target, source, env):
+    """
+    Extract blockgroups associated with road segments from a TIGER
+    FACES/ADDRFEAT file pair, using a list of all counties from the
+    frst source file.
+    source[0]: counties.txt
+    source[1]: TIGER.zip
+    """
+    files, writers = open_files(target, header)
+    counties = [x.strip() for x in open(source[0])]
+    with ZipFile(source[1]) as tiger_zip:
+        for county in counties:
+            with tempfile.TemporaryDirectory() as temp_dir:
+
+                # Extract county faces shepefile to temp dir
+                filename = f"TIGER/FACES/tl_2020_{county}_faces"
+                for ext in shapefile_exts:
+                    tiger_zip.extract(f"{filename}{ext}", path=temp_dir.name)
+                faces = shapefile.Reader(os.path.join(temp_dir.name, filename))
+
+                # Create index of blockgroups from faces
+                blkgrps = {}
+                for i in range(len(faces)):
+                    record = faces.record(i)
+                    blkgrps[record["TFID"]] = "".join((
+                        record["STATEFP"],
+                        record["COUNTYFP"],
+                        record["TRACTCE"],
+                        record["BLKGRPCE"]
+                    ))
+
+                # Extract county addrfeat shapefile to temp dir
+                filename = f"TIGER/ADDRFEAT/tl_2020_{county}_addrfeat"
+                for ext in shapefile_exts:
+                    tiger_zip.extract(f"{filename}{ext}", path=temp_dir.name)
+                addrfeat = shapefile.Reader(os.path.join(temp_dir.name, filename))
+
+                # Write out blockgroups for each street segment
+                for i in range(len(addrfeat)):
+                    record = addrfeat.record(i)
+                    # Normalize and save record
+                    StreetName = normalize_street(record["FULLNAME"])
+                    if StreetName:
+                        # Left
+                        ZipCode = record["ZIPL"]
+                        BlockGroup = blkgrps.get(record["TFIDL"])
+                        zip2 = ZipCode[:2]
+                        if zip2 in writers and BlockGroup:
+                            StreetNum = re_num.match(record["LFROMHN"])
+                            if StreetNum:
+                                writers[zip2].writerow((StreetNum.group(1), StreetName, ZipCode, BlockGroup))
+                            StreetNum = re_num.match(record["LTOHN"])
+                            if StreetNum:
+                                writers[zip2].writerow((StreetNum.group(1), StreetName, ZipCode, BlockGroup))
+                        # Right
+                        ZipCode = record["ZIPR"]
+                        zip2 = ZipCode[:2]
+                        BlockGroup = blkgrps.get(record["TFIDR"])
+                        zip2 = ZipCode[:2]
+                        if zip2 in writers and BlockGroup:
+                            StreetNum = re_num.match(record["RFROMHN"])
+                            if StreetNum:
+                                writers[zip2].writerow((StreetNum.group(1), StreetName, ZipCode, BlockGroup))
+                            StreetNum = re_num.match(record["RTOHN"])
+                            if StreetNum:
+                                writers[zip2].writerow((StreetNum.group(1), StreetName, ZipCode, BlockGroup))
+    close_files(files)
 
 
 def MergeStreet(target, source, env):

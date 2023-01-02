@@ -12,8 +12,6 @@ DOI = "10.5281/zenodo.7382661" # DOI of the replication files at Zenodo
 
 zip3s = pd.read_csv("data/zip3.csv", dtype=str)
 zip2s = sorted(zip3s.zip3.str[:2].unique().tolist())
-states = json.load(open("data/states.json"))
-counties = [x.strip() for x in open("counties.txt")]
 
 # Get input files from Zenodo
 # NOTE: this will download 20GB of data into the input/ subdirectory!
@@ -43,10 +41,8 @@ env.Command(
     "scratch/lookups/national-blkgrp.idx"
   ],
   source=[
+    "data/states.json",
     "input/TIGER.zip"
-  ]+[
-    Value(f"2020/BLKGRP/tl_2020_{state['fips']}_bg")
-    for state in states.values()
   ],
   action=source.lookups.NationalBlockGroups
 )
@@ -157,10 +153,7 @@ env.Command(
   ],
   source=[
     "source/extract-cms-npi.py",
-    os.path.join(
-      sharepoint,
-      "Data/Public/CMS-NPI/20211214/npidata_pfile_20050523-20211212.csv.gz"
-    ),
+    "input/Validation/CMS-NPI/20211214/npidata_pfile_20050523-20211212.csv.gz",
     os.path.join(
       sharepoint,
       "Data/Public/CMS-NPI/20211214/pl_pfile_20050523-20211212.csv.gz"
@@ -205,10 +198,7 @@ env.Command(
   ],
   source=[
     "source/extract-uspto-pat.py",
-    os.path.join(
-      sharepoint,
-      "Data/Public/USPTO/Patent Assignment Dataset/2020/assignment.csv.gz"
-    ),
+    "input/Validation/USPTO/Patent Assignment Dataset/2020/assignment.csv.gz",
     os.path.join(
       sharepoint,
       "Data/Public/USPTO/Patent Assignment Dataset/2020/assignee.csv.gz"

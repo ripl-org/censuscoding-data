@@ -5,27 +5,9 @@ import re
 from zipfile import ZipFile
 
 from source.address import extract_street_num, normalize_street, transliterate
+from source.utils import re_num, re_point, open_file, close_files
 
-
-re_num   = re.compile(r"^([1-9][0-9]*)")
-re_point = re.compile(r"^POINT \(([\-\.\d]+) ([\-\.\d]+)\)$")
-
-
-def _open_files(filenames):
-    files = {}
-    writers = {}
-    for filename in filenames:
-        zip2 = os.path.basename(filename).partition(".")[0]
-        files[zip2] = gzip.open(filename, "wt", encoding="ascii")
-        writers[zip2] = csv.writer(filename[zip2])
-        writers[zip2].writerow(("X", "Y", "StreetNum", "StreetName", "Zip"))
-    return files, writers
-
-
-def _close_files(files):
-    for f in files.values():
-        f.close()
-
+header = ["X", "Y", "StreetNum", "StreetName", "Zip"]
 
 def _read_csv(fileobj, config):
     """
@@ -87,7 +69,7 @@ def NationalAddressDatabase(target, source, env):
     Save to gzipped CSV files organization by leading 2-digits
     of zip code (zip2).
     """
-    files, writers = _open_files(target)
+    files, writers = open_files(target, header)
     with gzip.open(source[0], "rt", encoding="utf-8") as f:
         idx = [0,7,12,15,20,30,31]
         reader = csv.reader(f)
@@ -104,15 +86,20 @@ def NationalAddressDatabase(target, source, env):
                     StreetNum = line[20]
                     StreetName = "{} {}".format((line[12], line[15])).strip()
                     writers[zip2].writerow((X, Y, StreetNum, transliterate(StreetName), Zip))
-    _close_files(files)
+    close_files(files)
 
 
 def AddressPoints(target, source, env):
     """
+    Extract address points from a CSV or GeoJSON state/local address
+    source, with configurations specified by the first source file.
+    Save to gzipped CSV files organization by leading 2-digits
+    of zip code (zip2).
+    source[0]: AddressPoints.json
+    source[1]: AddressPoints.zip
     """
-    files, writers = _open_files(target)
-    with open(source[0]) as f:
-        datasets = json.read(f)
+    files, writers = open_files(target, header)
+    datasets = json.read(open(source[0]))
     with ZipFile(source[1]) as z:
         for dataset in datasets:
             filename = "/".join((dataset["name"], dataset["date"], dataset["filename"]))
@@ -128,4 +115,4 @@ def AddressPoints(target, source, env):
                         zip2 = record[-1][:2]
                         if zip2 in writers:
                             writers[zip2].writerrow(record)
-    _close_files(files)
+    close_files(files)
