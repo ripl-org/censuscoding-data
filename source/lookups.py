@@ -7,7 +7,8 @@ import rtree
 import shapefile
 import sys
 import tempfile
-from bisect import bisect_left
+from itertools import groupby
+from operator import attrgetter
 from shapely.geometry import shape
 from zipfile import ZipFile
 
@@ -152,86 +153,34 @@ def Line(target, source, env):
     close_files(files)
 
 
-def MergeStreet(target, source, env):
-    """
-    Read multiple street lookups and merge into a single JSON file.
-    """
-    lookup = defaultdict(dict)
-    for street_file in map(str, source):
-        with gzip.open(street_file, "rt", encoding="ascii") as f:
-            reader = csv.DictReader(f)
-            for record in reader:
-                lookup[record["zip"].zfill(5)][record["street"]] = record["blkgrp"]
-    with gzip.open(str(target[0]), "wt", encoding="ascii") as f:
-        json.dump(lookup, f)
-
-
-def MergeStreetNum(target, source, env):
-    """
-    """
-    with gzip.open(str(source[0]), "rt", encoding="ascii") as f:
-        lookup = json.load(f)
-
-    for num_file in map(str, source[1:]):
-        with gzip.open(num_file, "rt", encoding="ascii") as f:
-            reader = csv.DictReader(f)
-            for record in reader:
-                zip5 = record["zip"].zfill(5)
-                n = int(record["street_num"])
-
-                # Add this zipcode to the lookup if there was no street entry.
-                if zip5 not in lookup:
-                    lookup[zip5] = {}
-
-                # Update an existing record for this street
-                if record["street"] in lookup[zip5]:
-                    # Make sure this street is a numbered street
-                    assert isinstance(lookup[zip5][record["street"]], list), f"{record['zip']}:{record['street']}"
-                    nums = lookup[zip5][record["street"]][0]
-                    blkgrps = lookup[zip5][record["street"]][1]
-                    # Binary search to locate index for street_num.
-                    i = bisect_left(nums, n)
-                    # Merge street_num with neighboring street_num if they share
-                    # the same blockgroup.
-                    if i < len(nums) and blkgrps[i] == record["blkgrp"]:
-                        nums[i] = n
-                    elif i > 0 and blkgrps[i-1] == record["blkgrp"]:
-                        nums[i-1] = n
-                    else:
-                        nums.insert(i, n)
-                        blkgrps.insert(i, record["blkgrp"])
-                # Or create a new record for this street
-                else:
-                    lookup[zip5][record["street"]] = [[n], [record["blkgrp"]]]
-
-    with gzip.open(str(target[0]), "wt", encoding="ascii") as f:
-        json.dump(lookup, f)
-
-
 def Package(target, source, env):
     """
+    Sort and compress StreetNum ranges in Zip/StreetName groups from
+    source lookup files.
     """
-    out_dir = os.path.splitext(str(target[0]))[0]
-    if not os.path.exists(out_dir):
-        os.makedirs(out_dir)
-
-    with gzip.open(str(source[0]), "rt", encoding="ascii") as f:
-        lookup = json.load(f)
-
-    # Pickle at the 2-digit zipcode level
-
-    packaged = defaultdict(dict)
-    for zip5 in lookup:
-        if zip5 != "00000":
-            zz = zip5[:2]
-            zzz = zip5[2:]
-            packaged[zz][zzz] = lookup[zip5]
-
-    for zz in packaged:
-        path = os.path.join(out_dir, zz)
-        with open(path, "wb") as f:
-            pickle.dump(packaged[zz], f)
-
-    with open(str(target[0]), "w") as f:
-        for zz in packaged:
-            print(zz, file=f)
+    package = {}
+    lookup = pd.concat(
+        [pd.read_csv(filename, dtype=str) for filename in source],
+        ignore_index=True
+    )
+    # Correct zip code formatting
+    lookup["Zip"] = lookup["Zip"].str.zfill(5)
+    # Keep distinct records
+    lookup = lookup.drop_duplicates()
+    # StreetNum to int, for sorting
+    lookup["StreetNum"] = lookup["StreetNum"].astype(int)
+    # Sort
+    lookup = lookup.sort_values(["Zip", "StreetName", "StreetNum", "BlockGroup"])
+    # Group by zip/street
+    for zip5, streets in groupby(lookup.itertuples, key=attrgetter("Zip")):
+        zip3 = zip5[2:]
+        package[zip3] = {}
+        for street, nums in groupby(streets, key=attrgetter("StreetName")):
+                package[zip3][street] = ([], [])
+                for i, num in enumerate(nums):
+                    # TODO: resolve same num with multiple blockgroups
+                    if i == 0 or num.BlockGroup != package[zip3][street][1][-1]:
+                        package[zip3][street][0].append(num.StreetNum)
+                        package[zip3][street][1].append(num.BlockGroup)
+    with open(target[0], "wb") as f:
+        pickle.dump(package, f)
