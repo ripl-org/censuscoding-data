@@ -1,8 +1,29 @@
+import logging
 import re
 import usaddress
-from sirad import Log
-info = Log(__name__).info
 
+class Log(object):
+    """
+    Extends the built-in logging module to support
+    """
+
+    def __init__(self, *names):
+        self.name = ":".join(names)
+        self.log = logging.getLogger(self.name)
+
+    def debug(self, *message, sep=" "):
+        self.log.debug(" {}".format(sep.join(map(str, message))))
+
+    def error(self, *message, sep=" "):
+        self.log.error(" {}".format(sep.join(map(str, message))))
+
+    def info(self, *message, sep=" "):
+        self.log.info(" {}".format(sep.join(map(str, message))))
+
+    def warn(self, *message, sep=" "):
+        self.log.warn(" {}".format(sep.join(map(str, message))))
+
+info = Log(__name__).info
 
 # Translation table for transliteration of non-ASCII
 # letters to ASCII.

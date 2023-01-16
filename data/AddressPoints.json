@@ -3,6 +3,7 @@
 		"name": "CA/SanDiego",
 		"date": "20221128",
 		"filename": "Address_APN.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"StreetNum": "ADDRNMBR",
 			"StreetDir": "ADDRPDIR",
@@ -14,6 +15,7 @@
 		"name": "CA/SanFrancisco",
 		"date": "20220203",
 		"filename": "Addresses_-_Enterprise_Addressing_System.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"X": "Longitude",
 			"Y": "Latitude",
@@ -47,14 +49,15 @@
 	{
 		"name": "HI",
 		"date": "20211218",
-		"filename": "us_hi_honolulu-addresses-county.geojson.gz"
+		"filename": "us_hi_honolulu-addresses-city.geojson.gz"
 	},
 	{
 		"name": "IL/Cook",
 		"date": "20221129",
 		"filename": "Assessor__Archived_05-11-2022__-_Property_Locations.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
-			"X:": "longitude",
+			"X": "longitude",
 			"Y": "latitude",
 			"Address": "property_address",
 			"Zip": "property_zip"
@@ -64,6 +67,7 @@
 		"name": "KY/Jefferson",
 		"date": "20221130",
 		"filename": "Jefferson_County_KY_Address_Points.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"StreetNum": "HOUSENO",
 			"StreetDir": "DIR",
@@ -75,6 +79,7 @@
 		"name": "MI/Detroit",
 		"date": "20221130",
 		"filename": "Base_Units_Address_Points.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"StreetNum": "street_number",
 			"StreetDir": "street_prefix",
@@ -86,17 +91,19 @@
 		"name": "NE",
 		"date": "20220203",
 		"filename": "Address_Points.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"StreetNum": "ADD_NUM",
 			"StreetDir": "PRE_DIR",
 			"StreetName": "ST_NAME",
-			"ZIp": "ZIP"
+			"Zip": "ZIP"
 		}
 	},
 	{
 		"name": "PA/Philadelphia",
 		"date": "20221130",
 		"filename": "opa_properties_public.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"X": "lng",
 			"Y": "lat",
@@ -111,6 +118,7 @@
 		"name": "WA/King",
 		"date": "20221129",
 		"filename": "Addresses_in_King_County___address_point.csv.gz",
+		"encoding": "utf-8-sig",
 		"config": {
 			"X": "LAT",
 			"Y": "LON",
