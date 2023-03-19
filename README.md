@@ -2,7 +2,7 @@
 
 ## License
 
-Copyright 2021-2022 Innovative Policy Lab d/b/a Research Improving People's Lives
+Copyright 2021-2023 Innovative Policy Lab d/b/a Research Improving People's Lives
 ("RIPL"), Providence, RI. All Rights Reserved.
 
 Your use of the Software License along with any related Documentation, Data,
