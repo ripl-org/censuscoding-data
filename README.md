@@ -24,8 +24,13 @@ First, install the python (>=3.10) build dependencies with:
 
 Next, install the R (>=4.2) plotting dependencies with:
 
-    Rscript -e 'install.packages(c("tidyverse", "ggplot2", "viridis", "ggsci", "gridExtra"), repos = c("https://cran.r-project.org"))'
+    Rscript -e 'install.packages(c("tidyverse", "ggplot2", "viridis", "ggsci", "gridExtra", "devtools"), repos = c("https://cran.r-project.org"))'
+    Rscript -e 'require("devtools"); devtools::install_github("UrbanInstitute/urbnmapr")'
 
 Finally, run the `scons` command from the root directory to start the build.
 You can instead use `scons -n` for a dry run or `scons -jN` to run on *N*
 concurrent processors.
+
+##
+
+Zip/county crosswalk from https://www.huduser.gov/portal/datasets/usps_crosswalk.html

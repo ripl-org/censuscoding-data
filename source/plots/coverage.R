@@ -4,7 +4,7 @@ library(ggsci)
 
 args      <- commandArgs(trailingOnly = TRUE)
 data_file <- args[1]
-pdf_file  <- args[2]
+png_file  <- args[2]
 
 tests <- list(
   "cms-npi" = "Healthcare Providers (CMS NPI Directory)",
@@ -43,7 +43,7 @@ data <- read_csv(data_file) %>%
 
 print(head(data))
 
-g <- ggplot(data, aes(lookup, coverage, fill = lookup)) +
+plot <- ggplot(data, aes(lookup, coverage, fill = lookup)) +
   geom_col(width = 0.75) +
   coord_flip() +
   scale_y_continuous(
@@ -67,8 +67,8 @@ g <- ggplot(data, aes(lookup, coverage, fill = lookup)) +
   facet_grid(test ~ decade)
 
 ggsave(
-  filename = pdf_file,
-  plot = g,
+  filename = png_file,
+  plot = plot,
   width = 7.5,
   height = 4
 )

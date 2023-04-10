@@ -215,7 +215,7 @@ env.Command(
 
 env.Command(
   target=[
-    f"scratch/validation/coverage.pdf"
+    f"scratch/validation/coverage.png"
   ],
   source=[
     "source/plots/coverage.R",
@@ -225,10 +225,32 @@ env.Command(
 )
 env.Command(
   target=[
-    f"scratch/validation/accuracy.pdf"
+    f"scratch/validation/accuracy.png"
   ],
   source=[
     "source/plots/accuracy.R",
+    "scratch/validation/accuracy.csv"
+  ],
+  action="Rscript $SOURCES $TARGET >${TARGET}.log"
+)
+env.Command(
+  target=[
+    f"scratch/validation/coverage_map.png"
+  ],
+  source=[
+    "source/plots/coverage_map.R",
+    "data/zip_county.csv",
+    "scratch/validation/coverage.csv"
+  ],
+  action="Rscript $SOURCES $TARGET >${TARGET}.log"
+)
+env.Command(
+  target=[
+    f"scratch/validation/accuracy_map.png"
+  ],
+  source=[
+    "source/plots/accuracy_map.R",
+    "data/zip_county.csv",
     "scratch/validation/accuracy.csv"
   ],
   action="Rscript $SOURCES $TARGET >${TARGET}.log"

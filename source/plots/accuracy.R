@@ -5,7 +5,7 @@ library(gridExtra)
 
 args      <- commandArgs(trailingOnly = TRUE)
 data_file <- args[1]
-pdf_file  <- args[2]
+png_file  <- args[2]
 
 tests <- list(
   "epa-frs" = "EPA-Registered Facilities (EPA FRS)",
@@ -89,7 +89,7 @@ plot <- do.call(grid.arrange,
 )
 
 ggsave(
-  filename = pdf_file,
+  filename = png_file,
   plot = plot,
   width = 7.5,
   height = 6.5
